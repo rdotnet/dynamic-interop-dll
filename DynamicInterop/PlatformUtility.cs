@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -8,7 +10,7 @@ namespace DynamicInterop
     public static class PlatformUtility
     {
         /// <summary>
-        /// Is the platform a unix like (Unix or MacOX)
+        /// Is the platform unix-like (Unix or MacOX)
         /// </summary>
         public static bool IsUnix
         {
@@ -56,5 +58,31 @@ namespace DynamicInterop
 
         private static PlatformID? curPlatform = null;
 
+        /// <summary>
+        /// Execute a command in a new process
+        /// </summary>
+        /// <param name="processName">Process name e.g. "uname"</param>
+        /// <param name="arguments">Arguments e.g. "-s"</param>
+        /// <returns>The output of the command to the standard output stream</returns>
+        public static string ExecCommand(string processName, string arguments)
+        {
+            using (var proc = new Process())
+            {
+                proc.StartInfo.FileName = processName;
+                proc.StartInfo.Arguments = arguments;
+                proc.StartInfo.RedirectStandardOutput = true;
+                proc.StartInfo.UseShellExecute = false;
+                proc.StartInfo.CreateNoWindow = true;
+                proc.Start();
+                var kernelName = proc.StandardOutput.ReadLine();
+                proc.WaitForExit();
+                return kernelName;
+            }
+        }
+
+        public static string GetPlatformNotSupportedMsg()
+        {
+            return string.Format("Platform {0} is not supported.", Environment.OSVersion.Platform.ToString());
+        }
     }
 }

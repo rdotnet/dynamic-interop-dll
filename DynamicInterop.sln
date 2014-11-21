@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicInterop", "DynamicInterop\DynamicInterop.csproj", "{37E8DF32-0D37-418E-B976-10F4B36A0073}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicInterop.Tests", "DynamicInterop.Tests\DynamicInterop.Tests.csproj", "{CA934BF8-EC5B-49F5-8F52-25F3B11072E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{37E8DF32-0D37-418E-B976-10F4B36A0073}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37E8DF32-0D37-418E-B976-10F4B36A0073}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37E8DF32-0D37-418E-B976-10F4B36A0073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA934BF8-EC5B-49F5-8F52-25F3B11072E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA934BF8-EC5B-49F5-8F52-25F3B11072E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA934BF8-EC5B-49F5-8F52-25F3B11072E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA934BF8-EC5B-49F5-8F52-25F3B11072E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -37,19 +37,12 @@ namespace DynamicInterop
                 throw new ArgumentException("The name of the library to load is an empty string", "dllName");
             }
 
-            IDynamicLibraryLoader libraryLoader;
-            if (PlatformUtility.IsUnix)
-                libraryLoader = new UnixLibraryLoader();
-            else
-                libraryLoader = new WindowsLibraryLoader();
+            handle = new SafeHandleUnmanagedDll(dllName); 
 
-            handle = new SafeHandleUnmanagedDll(libraryLoader); 
-
-            if (handle == IntPtr.Zero)
+            if (handle.IsInvalid)
             {
                 ReportLoadLibError(dllName);
             }
-            SetHandle(handle);
             Filename = dllName;
         }
 
@@ -103,7 +96,7 @@ namespace DynamicInterop
         {
             if (!PlatformUtility.IsUnix)
                 return null;
-            var sampleldLibPaths = "/usr/local/lib/R/lib:/usr/local/lib:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server";
+            //var sampleldLibPaths = "/usr/local/lib/R/lib:/usr/local/lib:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server";
             var ldLibPathEnv = Environment.GetEnvironmentVariable("LD_LIBRARY_PATH");
             string msg = Environment.NewLine + Environment.NewLine;
             if (string.IsNullOrEmpty(ldLibPathEnv))
@@ -111,12 +104,12 @@ namespace DynamicInterop
             else
                 msg = msg + string.Format("The environment variable LD_LIBRARY_PATH is set to {0}.", ldLibPathEnv);
 
-            msg = msg + string.Format(" For some Unix-like operating systems you may need to set it BEFORE launching the application. For instance to {0}.", sampleldLibPaths);
-            msg = msg + " You can get the value as set by the R console application for your system, with the statement Sys.getenv('LD_LIBRARY_PATH'). For instance from your shell prompt:";
-            msg = msg + Environment.NewLine;
-            msg = msg + "Rscript -e \"Sys.getenv('LD_LIBRARY_PATH')\"";
-            msg = msg + Environment.NewLine;
-            msg = msg + "export LD_LIBRARY_PATH=/usr/the/paths/you/just/got/from/Rscript";
+            msg = msg + " For some Unix-like operating systems you may need to set or modify the variable LD_LIBRARY_PATH BEFORE launching the application.";
+            //msg = msg + " You can get the value as set by the R console application for your system, with the statement Sys.getenv('LD_LIBRARY_PATH'). For instance from your shell prompt:";
+            //msg = msg + Environment.NewLine;
+            //msg = msg + "Rscript -e \"Sys.getenv('LD_LIBRARY_PATH')\"";
+            //msg = msg + Environment.NewLine;
+            //msg = msg + "export LD_LIBRARY_PATH=/usr/the/paths/you/just/got/from/Rscript";
             msg = msg + Environment.NewLine + Environment.NewLine;
 
             return msg;
@@ -126,7 +119,7 @@ namespace DynamicInterop
         {
             var strMsg = string.Format("This {0}-bit process failed to load the library {1}",
                                        (Environment.Is64BitProcess ? "64" : "32"), dllFullName);
-            var nativeError = libraryLoader.GetLastError();
+            var nativeError = handle.GetLastError();
             if (!string.IsNullOrEmpty(nativeError))
                 strMsg = strMsg + string.Format(". Native error message is '{0}'", nativeError);
             var ldLibPathMsg = createLdLibPathMsg();

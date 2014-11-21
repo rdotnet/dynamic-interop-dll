@@ -10,10 +10,17 @@ namespace DynamicInterop
     [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
     internal sealed class SafeHandleUnmanagedDll : SafeHandleZeroOrMinusOneIsInvalid
     {
-        public SafeHandleUnmanagedDll(IDynamicLibraryLoader libraryLoader) : base(true) 
+        public SafeHandleUnmanagedDll(string dllName) : base(true) 
         {
-            if (libraryLoader != null) throw new ArgumentNullException("A dynamic library loader must be provided to this class", "libraryLoader");
+            IDynamicLibraryLoader libraryLoader = null;
+            if (PlatformUtility.IsUnix)
+                libraryLoader = new UnixLibraryLoader();
+            else if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+                libraryLoader = new WindowsLibraryLoader();
+            else
+                throw new NotSupportedException(PlatformUtility.GetPlatformNotSupportedMsg());
             this.libraryLoader = libraryLoader;
+            handle = libraryLoader.LoadLibrary(dllName);
         }
 
         private readonly IDynamicLibraryLoader libraryLoader;
@@ -67,6 +74,11 @@ namespace DynamicInterop
                 SetHandleAsInvalid();
             }
             base.Dispose(disposing);
+        }
+
+        public string GetLastError()
+        {
+            return libraryLoader.GetLastError();
         }
     }
 }

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DynamicInterop.PlatformUtility" Collapsed="true">
+    <Position X="3" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAACAAIAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlatformUtility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DynamicInterop.SafeHandleUnmanagedDll">
+    <Position X="3" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIEACAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SafeHandleUnmanagedDll.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="libraryLoader" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DynamicInterop.UnixLibraryLoader" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgEIACAAAABAAQAAAAAAAAAAAEQAAAAAAQAAAAAA=</HashCode>
+      <FileName>UnixLibraryLoader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DynamicInterop.UnmanagedDll" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIBACAQRAAAAGAAAAEAAAAEAAAAAAACAAAAAAI=</HashCode>
+      <FileName>UnmanagedDll.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="handle" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DynamicInterop.WindowsLibraryLoader" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AABAgAIAAACAAAAAQAAAAAAAAAAABAAAAAAIQAAAAAA=</HashCode>
+      <FileName>WindowsLibraryLoader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DynamicInterop.Win32" Collapsed="true">
+    <Position X="5.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAQAAQAAAAAQAAQAAAAAA=</HashCode>
+      <FileName>WindowsLibraryLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DynamicInterop.IDynamicLibraryLoader">
+    <Position X="6.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>IDynamicLibraryLoader.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
