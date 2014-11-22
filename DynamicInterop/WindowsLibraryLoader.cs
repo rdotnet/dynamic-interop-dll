@@ -41,7 +41,7 @@ namespace DynamicInterop
             return Win32.GetProcAddress(hModule, lpProcName);
         }
 
-        internal protected static string GetShortPath(string path)
+        public static string GetShortPath(string path)
         {
             var shortPath = new StringBuilder(Win32.MaxPathLength);
             Win32.GetShortPathName(path, shortPath, Win32.MaxPathLength);

@@ -197,7 +197,7 @@ namespace DynamicInterop
         /// Frees the native library this objects represents
         /// </summary>
         /// <param name="disposing"></param>
-        protected void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             handle.Dispose();
         }
