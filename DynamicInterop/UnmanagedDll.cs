@@ -206,5 +206,69 @@ namespace DynamicInterop
         {
             Dispose(true);
         }
+
+
+        IntPtr checkedGetSymbolHandle(string symbolName)
+        {
+            var addr = this.DangerousGetHandle (symbolName);
+            if (IntPtr.Zero == addr)
+                throw new ArgumentException (string.Format ("Could not find symbol exported {0}", symbolName), "symbolName");
+            return addr;
+        }
+
+        public void WriteInt32(string symbolName, int value)
+        {
+            var addr = checkedGetSymbolHandle (symbolName);
+            Marshal.WriteInt32(addr, value);
+        }
+
+        public int GetInt32(string symbolName)
+        {
+            var addr = checkedGetSymbolHandle (symbolName);
+            return Marshal.ReadInt32(addr);
+        }
+
+        public void WriteInt64(string symbolName, long value)
+        {
+            var addr = checkedGetSymbolHandle (symbolName);
+            Marshal.WriteInt64(addr, value);
+        }
+
+        public long GetInt64(string symbolName)
+        {
+            var addr = checkedGetSymbolHandle (symbolName);
+            return Marshal.ReadInt64(addr);
+        }
+
+        public void WriteIntPtr(string symbolName, IntPtr value)
+        {
+            var addr = checkedGetSymbolHandle (symbolName);
+            Marshal.WriteIntPtr(addr, value);
+        }
+
+        public IntPtr GetIntPtr(string symbolName)
+        {
+            var addr = checkedGetSymbolHandle (symbolName);
+            return Marshal.ReadIntPtr(addr);
+        }
+
+        public void WriteByte(string symbolName, Byte value)
+        {
+            var addr = checkedGetSymbolHandle (symbolName);
+            Marshal.WriteByte(addr, value);
+        }
+
+        public Byte GetByte(string symbolName)
+        {
+            var addr = checkedGetSymbolHandle (symbolName);
+            return Marshal.ReadByte(addr);
+        }
+
+        public string GetString(string symbolName, int value)
+        {
+            var addr = checkedGetSymbolHandle (symbolName);
+            return Marshal.PtrToStringAnsi(addr);
+        }
+            
     }
 }

@@ -26,6 +26,11 @@ namespace DynamicInterop
             return dlerror();
         }
 
+        /// <summary>
+        /// Unloads a library
+        /// </summary>
+        /// <param name="handle">The pointer resulting from loading the library</param>
+        /// <returns>True if the function dlclose returned 0</returns>
         public bool FreeLibrary(IntPtr hModule)
         {
             // according to the manual page on a Debian box
