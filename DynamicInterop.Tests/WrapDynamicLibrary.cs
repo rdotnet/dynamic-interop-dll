@@ -39,11 +39,23 @@ namespace DynamicInterop.Tests
         public void WellKnownSystemDll()
         {
             if (PlatformUtility.IsUnix)
-                throw new NotImplementedException();
+                TestLoadLibc();
             else if (Environment.OSVersion.Platform == PlatformID.Win32NT)
                 TestLoadKernel32();
             else
                 throw new NotSupportedException(PlatformUtility.GetPlatformNotSupportedMsg());
+        }
+
+        private void TestLoadLibc()
+        {
+            // TODO: obviously need to generalize this. 
+
+            //nm -D --defined-only /lib/x86_64-linux-gnu/libc.so.6 | less
+            using (var dll = new UnmanagedDll("/lib/x86_64-linux-gnu/libc.so.6"))
+            {
+                var m = dll.GetFunction<malloc>();
+                Assert.NotNull(m);
+            }
         }
 
         private void TestLoadKernel32()
@@ -57,6 +69,12 @@ namespace DynamicInterop.Tests
                 Assert.DoesNotThrow(() => areFileApisAnsi());
             }
         }
+            
+//        #if 32_BITS
+//        private delegate bool malloc(int size);
+//        #else
+        private delegate bool malloc(long size);
+//        #endif
 
         private delegate bool Beep(uint dwFreq, uint dwDuration);
         private delegate bool AreFileApisANSI();

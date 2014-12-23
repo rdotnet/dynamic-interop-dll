@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
+# Visual Studio 2012
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicInterop", "DynamicInterop\DynamicInterop.csproj", "{37E8DF32-0D37-418E-B976-10F4B36A0073}"
@@ -21,6 +21,20 @@ Global
 		{CA934BF8-EC5B-49F5-8F52-25F3B11072E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA934BF8-EC5B-49F5-8F52-25F3B11072E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA934BF8-EC5B-49F5-8F52-25F3B11072E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = DynamicInterop\DynamicInterop.csproj
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.FileWidth = 120
+		$1.EolMarker = Windows
+		$1.inheritsSet = VisualStudio
+		$1.inheritsScope = text/plain
+		$1.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $2
+		$2.inheritsSet = Mono
+		$2.inheritsScope = text/x-csharp
+		$2.scope = text/x-csharp
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
