@@ -9,7 +9,7 @@ This library is designed to dynamic libraries (called shared libraries on unix-t
 
 # Installation
 
-You can install this library in your project(s) [as a NuGet package](https://www.nuget.org/packages/DynamicIntero)
+You can install this library in your project(s) [as a NuGet package](https://www.nuget.org/packages/DynamicInterop)
 
 # License
 
