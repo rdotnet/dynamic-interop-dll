@@ -41,7 +41,10 @@ namespace DynamicInterop
 
             if (handle.IsInvalid)
             {
-                ReportLoadLibError(dllName);
+                // Retrieve the last error as soon as possible, 
+                // to limit the risk of another call to the dynamic loader overriding the error message;
+                var nativeError = handle.GetLastError();
+                ReportLoadLibError(dllName, nativeError);
             }
             Filename = dllName;
         }
@@ -52,9 +55,11 @@ namespace DynamicInterop
         public string Filename { get; private set; }
 
 
-        private void ReportLoadLibError(string dllName)
+        private void ReportLoadLibError(string dllName, string nativeError)
         {
-            string dllFullName = dllName;
+            ThrowFailedLibraryLoad (dllName, nativeError);
+/*
+ * string dllFullName = dllName;
             if (File.Exists(dllFullName))
                 ThrowFailedLibraryLoad(dllFullName);
             else
@@ -73,25 +78,10 @@ namespace DynamicInterop
                 dllFullName = FindFullPath(dllName, throwIfNotFound: true);
                 ThrowFailedLibraryLoad(dllFullName);
             }
+            */
         }
-
-        private static string FindFullPath(string dllName, bool throwIfNotFound = false)
-        {
-            string dllFullName;
-            if (File.Exists(dllName))
-            {
-                dllFullName = Path.GetFullPath(dllName);
-                if (File.Exists(dllFullName))
-                    return dllFullName;
-            }
-            var searchPaths = (Environment.GetEnvironmentVariable("PATH") ?? "").Split(Path.PathSeparator);
-            dllFullName = searchPaths.Select(directory => Path.Combine(directory, dllName)).FirstOrDefault(File.Exists);
-            if (throwIfNotFound)
-                if (string.IsNullOrEmpty(dllFullName) || !File.Exists(dllFullName))
-                    throw new DllNotFoundException(string.Format("Could not find the library named {0} in the search paths", dllName));
-            return dllFullName;
-        }
-
+            
+        [Obsolete("This message is likely to be too distribution specific", true)]
         private string createLdLibPathMsg()
         {
             if (!PlatformUtility.IsUnix)
@@ -115,16 +105,18 @@ namespace DynamicInterop
             return msg;
         }
 
-        private void ThrowFailedLibraryLoad(string dllFullName)
+        private void ThrowFailedLibraryLoad(string dllFullName, string nativeError)
         {
             var strMsg = string.Format("This {0}-bit process failed to load the library {1}",
                                        (Environment.Is64BitProcess ? "64" : "32"), dllFullName);
-            var nativeError = handle.GetLastError();
             if (!string.IsNullOrEmpty(nativeError))
                 strMsg = strMsg + string.Format(". Native error message is '{0}'", nativeError);
-            var ldLibPathMsg = createLdLibPathMsg();
-            if (!string.IsNullOrEmpty(ldLibPathMsg))
-                strMsg = strMsg + string.Format(". {0}", ldLibPathMsg);
+            else
+                strMsg = strMsg + ". No further error message from the dynamic library loader";
+
+//            var ldLibPathMsg = createLdLibPathMsg();
+//            if (!string.IsNullOrEmpty(ldLibPathMsg))
+//                strMsg = strMsg + string.Format(". {0}", ldLibPathMsg);
             throw new Exception(strMsg);
         }
 

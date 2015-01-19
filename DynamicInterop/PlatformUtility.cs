@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace DynamicInterop
 {
@@ -84,5 +85,29 @@ namespace DynamicInterop
         {
             return string.Format("Platform {0} is not supported.", Environment.OSVersion.Platform.ToString());
         }
+
+        /// <summary>
+        /// Given a DLL short file name, find all the matching occurences in directories as stored in an environment variable such as the PATH.
+        /// </summary>
+        /// <returns>One or more full file names found to exist</returns>
+        /// <param name="dllName">short file name.</param>
+        /// <param name="envVarName">Environment variable name - default PATH</param>
+        public static string[] FindFullPathEnvVar(string dllName, string envVarName="PATH")
+        {
+            var searchPaths = (Environment.GetEnvironmentVariable(envVarName) ?? "").Split(Path.PathSeparator);
+            return FindFullPath (dllName, searchPaths);
+        }
+
+        /// <summary>
+        /// Given a DLL short file name, find all the matching occurences in directories.
+        /// </summary>
+        /// <returns>One or more full file names found to exist</returns>
+        /// <param name="dllName">short file name.</param>
+        /// <param name="directories">Directories in which to search for matching file names</param>
+        public static string[] FindFullPath(string dllName, params string[] directories)
+        {
+            return directories.Select(directory => Path.Combine(directory, dllName)).Where(File.Exists).ToArray();
+        }
+
     }
 }
