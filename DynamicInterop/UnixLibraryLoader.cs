@@ -31,11 +31,11 @@ namespace DynamicInterop
         /// </summary>
         /// <param name="handle">The pointer resulting from loading the library</param>
         /// <returns>True if the function dlclose returned 0</returns>
-        public bool FreeLibrary(IntPtr hModule)
+        public bool FreeLibrary(IntPtr handle)
         {
             // according to the manual page on a Debian box
             // The function dlclose() returns 0 on success, and nonzero on error.
-            var status = dlclose(hModule);
+            var status = dlclose(handle);
             return status == 0;
         }
 

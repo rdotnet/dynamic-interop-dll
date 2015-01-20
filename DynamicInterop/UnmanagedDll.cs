@@ -166,6 +166,11 @@ namespace DynamicInterop
             throw new EntryPointNotFoundException(string.Format("Function {0} not found in native library {1}", entryPoint, this.Filename));
         }
 
+        /// <summary>
+        /// Gets the address of a native function entry point.
+        /// </summary>
+        /// <returns>The function address.</returns>
+        /// <param name="lpProcName">name of the function in the native library</param>
         public IntPtr GetFunctionAddress(string lpProcName)
         {
             return handle.GetFunctionAddress(lpProcName);
@@ -194,6 +199,14 @@ namespace DynamicInterop
             handle.Dispose();
         }
 
+        /// <summary>
+        /// Dispose of this library.
+        /// </summary>
+        /// <remarks>Call <see cref="Dispose()"/> when you are finished using the <see cref="DynamicInterop.UnmanagedDll"/>. The
+        /// <see cref="Dispose()"/> method leaves the <see cref="DynamicInterop.UnmanagedDll"/> in an unusable state.
+        /// After calling <see cref="Dispose()"/>, you must release all references to the
+        /// <see cref="DynamicInterop.UnmanagedDll"/> so the garbage collector can reclaim the memory that the
+        /// <see cref="DynamicInterop.UnmanagedDll"/> was occupying.</remarks>
         public void Dispose()
         {
             Dispose(true);
@@ -204,63 +217,116 @@ namespace DynamicInterop
         {
             var addr = this.DangerousGetHandle (symbolName);
             if (IntPtr.Zero == addr)
-                throw new ArgumentException (string.Format ("Could not find symbol exported {0}", symbolName), "symbolName");
+                throw new ArgumentException (string.Format ("Could not retrieve a pointer for the symbol '{0}' in file '{1}'", symbolName, Filename));
             return addr;
         }
 
+        /// <summary>
+        /// Writes an int32 value to the address of a symbol in the library. 
+        /// </summary>
+        /// <param name="symbolName">Symbol name.</param>
+        /// <param name="value">Value.</param>
+        /// <remarks>Throws an <exception cref="System.ArgumentException">ArgumentException</exception> if the symbol is not exported by the library</remarks>
         public void WriteInt32(string symbolName, int value)
         {
             var addr = checkedGetSymbolHandle (symbolName);
             Marshal.WriteInt32(addr, value);
         }
 
+        /// <summary>
+        /// Reads an int32 value from the address of a symbol in the library. 
+        /// </summary>
+        /// <returns>The value for this symbol, read as an int32</returns>
+        /// <param name="symbolName">Symbol name.</param>
+        /// <remarks>Throws an <exception cref="System.ArgumentException">ArgumentException</exception> if the symbol is not exported by the library</remarks>
         public int GetInt32(string symbolName)
         {
             var addr = checkedGetSymbolHandle (symbolName);
             return Marshal.ReadInt32(addr);
         }
 
+        /// <summary>
+        /// Writes an int64 value to the address of a symbol in the library. 
+        /// </summary>
+        /// <param name="symbolName">Symbol name.</param>
+        /// <param name="value">Value.</param>
+        /// <remarks>Throws an <exception cref="System.ArgumentException">ArgumentException</exception> if the symbol is not exported by the library</remarks>
         public void WriteInt64(string symbolName, long value)
         {
             var addr = checkedGetSymbolHandle (symbolName);
             Marshal.WriteInt64(addr, value);
         }
 
+        /// <summary>
+        /// Reads an int64 value from the address of a symbol in the library. 
+        /// </summary>
+        /// <returns>The value for this symbol, read as an int64</returns>
+        /// <param name="symbolName">Symbol name.</param>
+        /// <remarks>Throws an <exception cref="System.ArgumentException">ArgumentException</exception> if the symbol is not exported by the library</remarks>
         public long GetInt64(string symbolName)
         {
             var addr = checkedGetSymbolHandle (symbolName);
             return Marshal.ReadInt64(addr);
         }
 
+        /// <summary>
+        /// Writes an IntPtr value to the address of a symbol in the library. 
+        /// </summary>
+        /// <param name="symbolName">Symbol name.</param>
+        /// <param name="value">Value.</param>
+        /// <remarks>Throws an <exception cref="System.ArgumentException">ArgumentException</exception> if the symbol is not exported by the library</remarks>
         public void WriteIntPtr(string symbolName, IntPtr value)
         {
             var addr = checkedGetSymbolHandle (symbolName);
             Marshal.WriteIntPtr(addr, value);
         }
 
+        /// <summary>
+        /// Reads an IntPtr value from the address of a symbol in the library. 
+        /// </summary>
+        /// <returns>The value for this symbol, read as an IntPtr</returns>
+        /// <param name="symbolName">Symbol name.</param>
+        /// <remarks>Throws an <exception cref="System.ArgumentException">ArgumentException</exception> if the symbol is not exported by the library</remarks>
         public IntPtr GetIntPtr(string symbolName)
         {
             var addr = checkedGetSymbolHandle (symbolName);
             return Marshal.ReadIntPtr(addr);
         }
 
+        /// <summary>
+        /// Writes a Byte value to the address of a symbol in the library. 
+        /// </summary>
+        /// <param name="symbolName">Symbol name.</param>
+        /// <param name="value">Value.</param>
+        /// <remarks>Throws an <exception cref="System.ArgumentException">ArgumentException</exception> if the symbol is not exported by the library</remarks>
         public void WriteByte(string symbolName, Byte value)
         {
             var addr = checkedGetSymbolHandle (symbolName);
             Marshal.WriteByte(addr, value);
         }
 
+        /// <summary>
+        /// Reads a byte value from the address of a symbol in the library. 
+        /// </summary>
+        /// <returns>The value for this symbol, read as a byte</returns>
+        /// <param name="symbolName">Symbol name.</param>
+        /// <remarks>Throws an <exception cref="System.ArgumentException">ArgumentException</exception> if the symbol is not exported by the library</remarks>
         public Byte GetByte(string symbolName)
         {
             var addr = checkedGetSymbolHandle (symbolName);
             return Marshal.ReadByte(addr);
         }
 
-        public string GetString(string symbolName, int value)
+        /// <summary>
+        /// Reads a string value from the address of a symbol in the library. 
+        /// </summary>
+        /// <returns>The value for this symbol, read as an ANSI string</returns>
+        /// <param name="symbolName">Symbol name.</param>
+        /// <remarks>Throws an <exception cref="System.ArgumentException">ArgumentException</exception> if the symbol is not exported by the library</remarks>
+        public string GetAnsiString(string symbolName)
         {
             var addr = checkedGetSymbolHandle (symbolName);
             return Marshal.PtrToStringAnsi(addr);
-        }
-            
+        }           
     }
 }

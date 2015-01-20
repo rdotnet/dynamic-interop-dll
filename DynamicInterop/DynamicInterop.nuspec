@@ -1,17 +1,24 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
+    <id>DynamicInterop</id>
+    <version>0.7.3</version>
+    <title>Dynamic Interop</title>
     <authors>Jean-Michel Perraud</authors>
     <owners>Jean-Michel Perraud</owners>
     <licenseUrl>https://github.com/jmp75/metaheuristics/blob/master/LICENSE.txt</licenseUrl>
     <projectUrl>https://github.com/jmp75/dynamic-interop-dll</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Facilities to load native DLLs from .NET, on Unix, Windows or MacOS.</description>
-    <releaseNotes>Initial release as NuGet package, after refactoring out of R.NET</releaseNotes>
+    <releaseNotes>Add helper functions to find the full path of a library, e.g. looking into PATH. Changes to the error reporting, which was still too inspired by the specifics of R.NET legacy</releaseNotes>
     <copyright>Copyright 2014 J-M, Daniel Collins, CSIRO; Copyright 2013 Kosei, evolvedmicrobe</copyright>
     <tags>interop, DLL, pinvoke, p/invoke, shared library, native library</tags>
+    <references>
+      <reference file="DynamicInterop.dll" />
+    </references>
   </metadata>
+  <files>
+    <file src="bin/Release/DynamicInterop.dll" target="lib/net40" />
+    <file src="bin/Release/DynamicInterop.XML" target="lib/net40" />
+  </files>
 </package>

@@ -8,8 +8,11 @@ using System.IO;
 
 namespace DynamicInterop
 {
+    /// <summary>
+    /// Helper class with functions whose behavior may be depending on the platform 
+    /// </summary>
     public static class PlatformUtility
-    {
+    {       
         /// <summary>
         /// Is the platform unix-like (Unix or MacOX)
         /// </summary>
@@ -81,6 +84,10 @@ namespace DynamicInterop
             }
         }
 
+        /// <summary>
+        /// Gets a message saying the current platform is not supported
+        /// </summary>
+        /// <returns>The platform not supported message.</returns>
         public static string GetPlatformNotSupportedMsg()
         {
             return string.Format("Platform {0} is not supported.", Environment.OSVersion.Platform.ToString());
