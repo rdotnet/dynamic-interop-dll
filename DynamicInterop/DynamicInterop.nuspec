@@ -6,12 +6,12 @@
     <title>Dynamic Interop</title>
     <authors>Jean-Michel Perraud</authors>
     <owners>Jean-Michel Perraud</owners>
-    <licenseUrl>https://github.com/jmp75/metaheuristics/blob/master/LICENSE.txt</licenseUrl>
+    <licenseUrl>https://github.com/jmp75/dynamic-interop-dll/blob/master/LICENSE.txt</licenseUrl>
     <projectUrl>https://github.com/jmp75/dynamic-interop-dll</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Facilities to load native DLLs from .NET, on Unix, Windows or MacOS.</description>
     <releaseNotes>Add helper functions to find the full path of a library, e.g. looking into PATH. Changes to the error reporting, which was still too inspired by the specifics of R.NET legacy</releaseNotes>
-    <copyright>Copyright 2014 J-M, Daniel Collins, CSIRO; Copyright 2013 Kosei, evolvedmicrobe</copyright>
+    <copyright>(c) 2015 Jean-Michel Perraud; (c) 2014 Daniel Collins, CSIRO; (c) 2013 Kosei, evolvedmicrobe</copyright>
     <tags>interop, DLL, pinvoke, p/invoke, shared library, native library</tags>
     <references>
       <reference file="DynamicInterop.dll" />

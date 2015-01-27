@@ -13,7 +13,7 @@ You can install this library in your project(s) [as a NuGet package](https://www
 
 # License
 
-This library is covered by [LGPL 2.1](https://github.com/jmp75/metaheuristics/blob/master/LICENSE.txt).
+This library is covered as of version 0.7.3 by the [MIT license](https://github.com/jmp75/dynamic-interop-dll/blob/master/LICENSE.txt).
 
 # Usage
 
