@@ -75,46 +75,65 @@ namespace DynamicInterop
                 Dispose();
         }
 
+        /// <summary> Releases the native resource for this handle.</summary>
+        ///
+        /// <returns> True if it succeeds, false if it fails.</returns>
         protected abstract bool ReleaseHandle();
 
+        /// <summary> Gets the number of references to the native resource for this handle.</summary>
+        ///
+        /// <value> The number of references.</value>
         public int ReferenceCount
         {
             get;
             private set;
         }
 
+        /// <summary> Gets a value indicating whether this handle has been disposed of already</summary>
+        ///
+        /// <value> True if disposed, false if not.</value>
         public bool Disposed
         {
             get { return IsInvalid; }
         }
 
+        /// <summary> The handle to the native resource.</summary>
         protected IntPtr handle;
 
+        /// <summary> Gets a value indicating whether this handle is invalid.</summary>
         public bool IsInvalid
         {
             get { return handle == IntPtr.Zero; }
         }
 
+        /// <summary> If the reference counts allows it, release the resource refered to by this handle.</summary>
         public void Dispose()
         {
             if (Disposed)
                 return;
             if (ReferenceCount <= 0)
                 if (ReleaseHandle())
+                {
                     handle = IntPtr.Zero;
-            GC.SuppressFinalize(this);
+                    GC.SuppressFinalize(this);
+                }
         }
 
+        /// <summary> Returns the value of the handle.</summary>
+        ///
+        /// <returns> The handle.</returns>
         public IntPtr GetHandle()
         {
             return handle;
         }
 
+        /// <summary> Manually increments the reference counter.</summary>
         public void AddRef()
         {
             ReferenceCount++;
         }
 
+        /// <summary> Manually decrements the reference counter. Triggers disposal if count reaches is zero.</summary>
         public void Release()
         {
             ReferenceCount--;
