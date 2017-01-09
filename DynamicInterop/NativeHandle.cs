@@ -68,11 +68,13 @@ namespace DynamicInterop
             ReferenceCount = currentRefCount + 1;
         }
 
+        private bool finalizing = false;
+
         /// <summary> Finaliser. Triggers the disposal of this object if not manually done.</summary>
         ~NativeHandle()
         {
-            if(!Disposed)
-                Dispose();
+            finalizing = true;
+            Release();
         }
 
         /// <summary> Releases the native resource for this handle.</summary>
@@ -115,7 +117,8 @@ namespace DynamicInterop
                 if (ReleaseHandle())
                 {
                     handle = IntPtr.Zero;
-                    GC.SuppressFinalize(this);
+                    if(!finalizing)
+                        GC.SuppressFinalize(this);
                 }
         }
 

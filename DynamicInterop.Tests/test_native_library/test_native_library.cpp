@@ -93,8 +93,20 @@ void say_walk(TEST_OWNER_PTR owner)
 
 void release(TEST_COUNTED_PTR obj)
 {
-	obj->remove_reference();
+	int refCount = obj->remove_reference();
+	if (refCount <= 0) delete obj;
 }
+
+int num_dogs()
+{
+	return testnative::dog::num_dogs;
+}
+
+int num_owners()
+{
+	return testnative::owner::num_owners;
+}
+
 
 
 

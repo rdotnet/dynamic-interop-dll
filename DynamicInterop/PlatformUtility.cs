@@ -116,6 +116,16 @@ namespace DynamicInterop
             return directories.Select(directory => Path.Combine(directory, dllName)).Where(File.Exists).ToArray();
         }
 
+        /// <summary> Given a DLL short file name, short or otherwise, searches for the first full path.</summary>
+        ///
+        /// <exception cref="DllNotFoundException"> Thrown when a DLL Not Found error condition occurs.</exception>
+        ///
+        /// <param name="nativeLibFilename"> Filename of the native library file.</param>
+        /// <param name="libname">           (Optional) human-readable name of the library.</param>
+        /// <param name="envVarName">        (Optional)
+        ///                                  Environment variable to use for search path(s) - 
+        ///                                  defaults according to platform to PATH or LD_LIBRARY_PATH if empty.</param>
+        /// <returns> The found full path.</returns>
         public static string FindFirstFullPath(string nativeLibFilename, string libname = "native library", string envVarName = "")
         {
             if (string.IsNullOrEmpty(nativeLibFilename) || !Path.IsPathRooted(nativeLibFilename))
@@ -143,6 +153,13 @@ namespace DynamicInterop
                 return candidates[0];
         }
 
+        /// <summary> Given the stub name for a library get the likely platform specific file name</summary>
+        ///
+        /// <exception cref="ArgumentNullException"> Thrown when one or more required arguments are null.</exception>
+        ///
+        /// <param name="libraryName"> Name of the library.</param>
+        ///
+        /// <returns> The likely file name for the shared library.</returns>
         public static string CreateLibraryFileName(string libraryName)
         {
             if (string.IsNullOrEmpty(libraryName))

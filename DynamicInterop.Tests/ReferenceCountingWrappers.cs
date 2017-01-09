@@ -34,6 +34,8 @@ namespace DynamicInterop.Tests
         private delegate int get_dog_owner_refcount_delegate(IntPtr owner);
         private delegate void say_walk_delegate(IntPtr owner);
         private delegate void release_delegate(IntPtr obj);
+        private delegate int num_dogs_delegate();
+        private delegate int num_owners_delegate();
 
         internal IntPtr create_dog()
         {
@@ -70,6 +72,15 @@ namespace DynamicInterop.Tests
             NativeLib.GetFunction<say_walk_delegate>("say_walk")(objPtr);
         }
 
+        internal static int num_dogs()
+        {
+            return NativeLib.GetFunction<num_dogs_delegate>("num_dogs")();
+        }
+
+        internal static int num_owners()
+        {
+            return NativeLib.GetFunction<num_owners_delegate>("num_owners")();
+        }
     }
 
     [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
@@ -110,6 +121,11 @@ namespace DynamicInterop.Tests
         {
             get { return api.get_dog_refcount(this); }
         }
+
+        public static int NumNativeInstances
+        {
+            get { return NativeTestLib.num_dogs(); }
+        }
     }
 
     public class DogOwner : CustomNativeHandle
@@ -130,6 +146,11 @@ namespace DynamicInterop.Tests
         internal void SayWalk()
         {
             api.say_walk(this);
+        }
+
+        public static int NumNativeInstances
+        {
+            get { return NativeTestLib.num_owners(); }
         }
 
         protected override bool ReleaseHandle()
@@ -176,5 +197,31 @@ namespace DynamicInterop.Tests
             Assert.True(dog.IsInvalid);
             Assert.True(owner.IsInvalid);
         }
+
+        [Fact]
+        public void TestNativeHandleFinalizers()
+        {
+            NativeTestLib lib = new NativeTestLib();
+            int initDogCount = Dog.NumNativeInstances;
+
+            Dog dog = new Dog();
+            Assert.Equal(initDogCount + 1, Dog.NumNativeInstances);
+            Assert.Equal(1, dog.ReferenceCount);
+            Assert.Equal(1, dog.NativeReferenceCount);
+            dog = null;
+            CallGC();
+            Assert.Equal(initDogCount, Dog.NumNativeInstances);
+        }
+
+        /// <summary>
+        /// Use intended only for unit tests.
+        /// </summary>
+        public static long CallGC()
+        {
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
+            return GC.GetTotalMemory(true);
+        }
+
     }
 }

@@ -28,17 +28,21 @@ namespace testnative
 
 	dog::dog()
 	{
+		num_dogs++;
 	}
 
 	dog::~dog()
 	{
+		num_dogs--;
 	}
 	bool dog::wag_tail(bool b) { return b; }
 
-
+	int dog::num_dogs(0);
+	int owner::num_owners(0);
 
 	owner::owner(dog* d)
 	{
+		num_owners++;
 		this->d = d;
 	}
 
@@ -49,6 +53,7 @@ namespace testnative
 
 	owner::~owner()
 	{
+		num_owners--;
 	}
 
 }

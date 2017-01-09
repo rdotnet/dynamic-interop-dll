@@ -54,6 +54,8 @@ namespace testnative
 		dog();
 		bool wag_tail(bool);
 		~dog();
+		// cheap instance counters:
+		static int num_dogs;
 
 	private:
 
@@ -65,6 +67,7 @@ namespace testnative
 		owner(dog* d);
 		void say_walk();
 		~owner();
+		static int num_owners;
 
 	private:
 		dog* d;

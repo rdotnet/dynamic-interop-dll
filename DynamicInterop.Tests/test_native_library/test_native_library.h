@@ -58,6 +58,9 @@ extern "C" {
 	TESTLIB_API int remove_owner_reference(TEST_OWNER_PTR obj);
 	TESTLIB_API int add_owner_reference(TEST_OWNER_PTR obj);
 
+	TESTLIB_API int num_dogs();
+	TESTLIB_API int num_owners();
+
 	TESTLIB_API void say_walk(TEST_OWNER_PTR owner);
 	TESTLIB_API void release(TEST_COUNTED_PTR obj);
 

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DynamicInterop</id>
-    <version>0.8</version>
+    <version>0.8.1</version>
     <title>Dynamic Interop</title>
     <authors>Jean-Michel Perraud</authors>
     <owners>Jean-Michel Perraud</owners>
