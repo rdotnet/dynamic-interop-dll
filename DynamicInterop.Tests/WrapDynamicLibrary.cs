@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using Xunit;
 
 namespace DynamicInterop.Tests
 {
+    [Collection("Swift Bindings tests (to prevent parallel unit test runs)")]
     public class WrapDynamicLibrary
     {
         [Fact]
@@ -24,7 +21,7 @@ namespace DynamicInterop.Tests
         [Fact]
         public void InvalidFileName()
         {
-            Assert.Throws<DllNotFoundException>(() => CreateLib("SomeVeryUnlikelyName.dll"));
+            Assert.Throws<Exception>(() => CreateLib("SomeVeryUnlikelyName.dll"));
         }
 
         private void CreateLib(string fname)
@@ -66,7 +63,7 @@ namespace DynamicInterop.Tests
                 Assert.NotNull(beep);
                 //beep(400, 1000);
                 var areFileApisAnsi = dll.GetFunction<AreFileApisANSI>();
-                Assert.DoesNotThrow(() => areFileApisAnsi());
+                var b = areFileApisAnsi(); // does not throw.
             }
         }
             

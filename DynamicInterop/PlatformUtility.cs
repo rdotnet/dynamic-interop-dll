@@ -116,5 +116,41 @@ namespace DynamicInterop
             return directories.Select(directory => Path.Combine(directory, dllName)).Where(File.Exists).ToArray();
         }
 
+        public static string FindFirstFullPath(string nativeLibFilename, string libname = "native library", string envVarName = "")
+        {
+            if (string.IsNullOrEmpty(nativeLibFilename) || !Path.IsPathRooted(nativeLibFilename))
+                nativeLibFilename = findFirstFullPath(nativeLibFilename, envVarName);
+            else if (!File.Exists(nativeLibFilename))
+                throw new DllNotFoundException(string.Format("Could not find specified file {0} to load as {1}", nativeLibFilename, libname));
+            return nativeLibFilename;
+        }
+
+        private static string findFirstFullPath(string shortFileName, string envVarName = "")
+        {
+            if (string.IsNullOrEmpty(shortFileName))
+                throw new ArgumentNullException("shortFileName");
+
+            string libSearchPathEnvVar = envVarName;
+            if (string.IsNullOrEmpty(libSearchPathEnvVar))
+                libSearchPathEnvVar = (Environment.OSVersion.Platform == PlatformID.Win32NT ? "PATH" : "LD_LIBRARY_PATH");
+            var candidates = PlatformUtility.FindFullPathEnvVar(shortFileName, libSearchPathEnvVar);
+            if ((candidates.Length == 0) && (Environment.OSVersion.Platform == PlatformID.Win32NT))
+                if (File.Exists(shortFileName))
+                    candidates = new string[] { shortFileName };
+            if (candidates.Length == 0)
+                throw new DllNotFoundException(string.Format("Could not find native library named '{0}' within the directories specified in the '{1}' environment variable", shortFileName, libSearchPathEnvVar));
+            else
+                return candidates[0];
+        }
+
+        public static string CreateLibraryFileName(string libraryName)
+        {
+            if (string.IsNullOrEmpty(libraryName))
+                throw new ArgumentNullException("libraryName");
+            return 
+                (Environment.OSVersion.Platform == PlatformID.Win32NT ? 
+                libraryName + ".dll" : 
+                "lib" + libraryName + ".so");
+        }
     }
 }
