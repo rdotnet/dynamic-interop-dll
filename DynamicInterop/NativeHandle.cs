@@ -111,13 +111,20 @@ namespace DynamicInterop
         /// <summary> If the reference counts allows it, release the resource refered to by this handle.</summary>
         public void Dispose()
         {
+            DisposeImpl(true);
+        }
+
+        private void DisposeImpl(bool decrement)
+        {
             if (Disposed)
                 return;
+            if (decrement)
+                ReferenceCount--;
             if (ReferenceCount <= 0)
                 if (ReleaseHandle())
                 {
                     handle = IntPtr.Zero;
-                    if(!finalizing)
+                    if (!finalizing)
                         GC.SuppressFinalize(this);
                 }
         }
@@ -139,11 +146,8 @@ namespace DynamicInterop
         /// <summary> Manually decrements the reference counter. Triggers disposal if count reaches is zero.</summary>
         public void Release()
         {
-            ReferenceCount--;
-            if (ReferenceCount <= 0)
-                Dispose();
+            DisposeImpl(true);
         }
-
     }
 
 }

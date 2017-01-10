@@ -213,6 +213,20 @@ namespace DynamicInterop.Tests
             Assert.Equal(initDogCount, Dog.NumNativeInstances);
         }
 
+        [Fact]
+        public void TestNativeHandleDisposal()
+        {
+            NativeTestLib lib = new NativeTestLib();
+            int initDogCount = Dog.NumNativeInstances;
+
+            Dog dog = new Dog();
+            Assert.Equal(initDogCount + 1, Dog.NumNativeInstances);
+            Assert.Equal(1, dog.ReferenceCount);
+            Assert.Equal(1, dog.NativeReferenceCount);
+            dog.Dispose();
+            Assert.Equal(initDogCount, Dog.NumNativeInstances);
+        }
+
         /// <summary>
         /// Use intended only for unit tests.
         /// </summary>

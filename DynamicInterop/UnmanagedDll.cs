@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -120,7 +121,7 @@ namespace DynamicInterop
             throw new Exception(strMsg);
         }
 
-        private Dictionary<string, object> delegateFunctionPointers = new Dictionary<string, object>();
+        private ConcurrentDictionary<string, object> delegateFunctionPointers = new ConcurrentDictionary<string, object>();
 
         /// <summary>
         /// Creates the delegate function for the specified function defined in the DLL.
@@ -144,21 +145,24 @@ namespace DynamicInterop
         {
             if (string.IsNullOrEmpty(entryPoint))
                 throw new ArgumentNullException("entryPoint", "Native function name cannot be null or empty");
-            Type delegateType = typeof(TDelegate);
-            if (delegateFunctionPointers.ContainsKey(entryPoint))
-                return (TDelegate)delegateFunctionPointers[entryPoint];
-            if (!delegateType.IsSubclassOf(typeof(Delegate)))
+            lock (this)
             {
-                throw new InvalidCastException();
+                Type delegateType = typeof(TDelegate);
+                if (delegateFunctionPointers.ContainsKey(entryPoint))
+                    return (TDelegate)delegateFunctionPointers[entryPoint];
+                if (!delegateType.IsSubclassOf(typeof(Delegate)))
+                {
+                    throw new InvalidCastException();
+                }
+                IntPtr function = GetFunctionAddress(entryPoint);
+                if (function == IntPtr.Zero)
+                {
+                    throwEntryPointNotFound(entryPoint);
+                }
+                var dFunc = Marshal.GetDelegateForFunctionPointer(function, delegateType) as TDelegate;
+                delegateFunctionPointers[entryPoint] = dFunc;
+                return dFunc;
             }
-            IntPtr function = GetFunctionAddress(entryPoint);
-            if (function == IntPtr.Zero)
-            {
-                throwEntryPointNotFound(entryPoint);
-            }
-            var dFunc = Marshal.GetDelegateForFunctionPointer(function, delegateType) as TDelegate;
-            delegateFunctionPointers.Add(entryPoint, dFunc);
-            return dFunc;
         }
 
         private void throwEntryPointNotFound(string entryPoint)
