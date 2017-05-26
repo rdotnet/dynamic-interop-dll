@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace DynamicInterop
     /// <summary>
     /// A proxy for unmanaged dynamic link library (DLL).
     /// </summary>
-    public class UnmanagedDll : IDisposable
+    public class UnmanagedDll : MarshalByRefObject, IDisposable
     {
         private SafeHandleUnmanagedDll handle;
 
