@@ -11,7 +11,7 @@ namespace DynamicInterop
     /// <summary>
     /// A proxy for unmanaged dynamic link library (DLL).
     /// </summary>
-    public class UnmanagedDll : IDisposable
+    public class UnmanagedDll : MarshalByRefObject, IDisposable
     {
         private SafeHandleUnmanagedDll handle;
 
