@@ -21,7 +21,7 @@ namespace DynamicInterop.Tests
         [Fact]
         public void InvalidFileName()
         {
-            Assert.Throws<Exception>(() => CreateLib("SomeVeryUnlikelyName.dll"));
+            Assert.Throws<ArgumentException>(() => CreateLib("SomeVeryUnlikelyName.dll"));
         }
 
         private void CreateLib(string fname)

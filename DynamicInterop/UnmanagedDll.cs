@@ -118,7 +118,7 @@ namespace DynamicInterop
 //            var ldLibPathMsg = createLdLibPathMsg();
 //            if (!string.IsNullOrEmpty(ldLibPathMsg))
 //                strMsg = strMsg + string.Format(". {0}", ldLibPathMsg);
-            throw new Exception(strMsg);
+            throw new ArgumentException(strMsg);
         }
 
         private ConcurrentDictionary<string, object> delegateFunctionPointers = new ConcurrentDictionary<string, object>();
