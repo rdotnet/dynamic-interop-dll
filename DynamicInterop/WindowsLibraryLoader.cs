@@ -4,7 +4,6 @@ using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Text;
-using Microsoft.Win32;
 
 namespace DynamicInterop
 {
@@ -13,7 +12,7 @@ namespace DynamicInterop
     {
         public IntPtr LoadLibrary(string filename)
         {
-            new SecurityPermission(SecurityPermissionFlag.UnmanagedCode).Demand();
+            //new SecurityPermission(SecurityPermissionFlag.UnmanagedCode).Demand();
             var handle = Win32.LoadLibrary(filename);
             if (handle == IntPtr.Zero)
             {
@@ -46,37 +45,6 @@ namespace DynamicInterop
             var shortPath = new StringBuilder(Win32.MaxPathLength);
             Win32.GetShortPathName(path, shortPath, Win32.MaxPathLength);
             return shortPath.ToString();
-        }
-
-        public static string GetRHomeFromRegistry()
-        {
-            var rCoreKey = GetRCoreRegistryKey();
-            var path = rCoreKey.GetValue("InstallPath") as string;
-            return GetShortPath(path);
-        }
-
-        public static Version GetRVersionFromRegistry()
-        {
-            var rCoreKey = GetRCoreRegistryKey();
-            var version = rCoreKey.GetValue("Current Version") as string;
-            if (string.IsNullOrEmpty(version)) return null;
-            return new Version(version);
-        }
-
-        private static RegistryKey GetRCoreRegistryKey()
-        {
-            if (Environment.OSVersion.Platform != PlatformID.Win32NT) return null;
-
-            var rCore = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\R-core");
-            if (rCore == null)
-            {
-                rCore = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\R-core");
-                if (rCore == null) return null;
-            }
-
-            var subKey = Environment.Is64BitProcess ? "R64" : "R";
-            var r = rCore.OpenSubKey(subKey);
-            return r;
         }
     }
 
