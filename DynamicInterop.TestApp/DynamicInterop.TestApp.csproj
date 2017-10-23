@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{46208A0E-F95F-4B1E-A396-0F715BA6B87A}</ProjectGuid>
     <OutputType>Exe</OutputType>
