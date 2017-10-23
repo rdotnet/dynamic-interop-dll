@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Security.Permissions;
 using Xunit;
 
@@ -26,6 +27,35 @@ namespace DynamicInterop.Tests
             }
         }
 
+        public string GuessTestLibPath()
+        {
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+            {
+                bool is64bits = System.Environment.Is64BitProcess;
+                //AppDomain.CurrentDomain.BaseDirectory
+                //"C:\\src\\github_jm\\dynamic-interop-dll\\DynamicInterop.Tests\\bin\\Debug\\netcoreapp2.0\\"
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                string d = baseDir;
+                string baseName = Path.GetFileName(baseDir);
+                string dirName = Path.GetDirectoryName(baseDir);
+                int maxIter = 24;
+                while (!string.IsNullOrEmpty(baseName) && !(baseName == "DynamicInterop.Tests") && maxIter > 0)
+                {
+                    d = baseDir;
+                    baseName = Path.GetFileName(baseDir);
+                    dirName = Path.GetDirectoryName(baseDir);
+                    maxIter--;
+                }
+                if (is64bits)
+                    return Path.Combine(d, "x64", "Debug");
+                else
+                    return Path.Combine(d, "Win32", "Debug");
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
         public static UnmanagedDll NativeLib { get; private set; }
 
         private delegate IntPtr create_dog_delegate();

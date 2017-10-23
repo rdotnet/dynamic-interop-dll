@@ -19,25 +19,26 @@ This library is covered as of version 0.7.3 by the [MIT license](https://github.
 
 An extract from the unit tests:
 
-    private void TestLoadKernel32()
+```c#
+private void TestLoadKernel32()
+{
+    using (var dll = new UnmanagedDll("kernel32.dll"))
     {
-        using (var dll = new UnmanagedDll("kernel32.dll"))
-        {
-            var beep = dll.GetFunction<Beep>();
-            Assert.NotNull(beep);
-            //beep(400, 1000);
-            var areFileApisAnsi = dll.GetFunction<AreFileApisANSI>();
-            Assert.DoesNotThrow(() => areFileApisAnsi());
-        }
+        var beep = dll.GetFunction<Beep>();
+        Assert.NotNull(beep);
+        //beep(400, 1000);
+        var areFileApisAnsi = dll.GetFunction<AreFileApisANSI>();
+        Assert.DoesNotThrow(() => areFileApisAnsi());
     }
+}
 
-    private delegate bool Beep(uint dwFreq, uint dwDuration);
-    private delegate bool AreFileApisANSI();
-
+private delegate bool Beep(uint dwFreq, uint dwDuration);
+private delegate bool AreFileApisANSI();
+```
 
 # Related work
 
-I did notice that [a related library](https://github.com/Boyko-Karadzhov/Dynamic-Libraries) with some overlapping features has been released just a week ago... While I want to explore possibilities to merge these libraries, I have pressing needs to release present library release as a stand-alone package.
+I did notice that [a related library](https://github.com/Boyko-Karadzhov/Dynamic-Libraries) with some overlapping features has been released just a week ago (as of when I wrote this)... While I want to explore possibilities to merge these libraries, I have pressing needs to release present library release as a stand-alone package.
 
 # Workaround for some Linux platforms
 
@@ -47,13 +48,14 @@ On Linux, DynamicInterop calls the dlopen function in "libdl" via P/Invoke to tr
 
 You build and install this workaround with the following commands:
 
-    DYNINTEROP_BIN_DIR=~/my/path/to/DynamicInteropBinaries
-    cd libdlwrap
-    make
-    less sample.config # skim the comments, for information
-    cp sample.config $DYNINTEROP_BIN_DIR/DynamicInterop.dll.config
-    cp libdlwrap.so  $DYNINTEROP_BIN_DIR/
-
+```bash
+DYNINTEROP_BIN_DIR=~/my/path/to/DynamicInteropBinaries
+cd libdlwrap
+make
+less sample.config # skim the comments, for information
+cp sample.config $DYNINTEROP_BIN_DIR/DynamicInterop.dll.config
+cp libdlwrap.so  $DYNINTEROP_BIN_DIR/
+```
 # Acknowledgements
 
 * Kosei designed and implemented the original multi-platform library loading
