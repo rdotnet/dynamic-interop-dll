@@ -2,4 +2,7 @@ language: csharp
 mono: none
 dotnet: 2.0.0
 dist: trusty
-solution: DynamicInterop.sln
+
+script:
+- dotnet restore
+- xbuild /p:Configuration=Release DynamicInterop.sln
