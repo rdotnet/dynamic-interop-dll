@@ -5,4 +5,5 @@ dist: trusty
 
 script:
 - dotnet restore
-- dotnet build --configuration Release
+- dotnet build --configuration Release --no-restore
+- dotnet pack DynamicInterop/DynamicInterop.csproj --configuration Release --no-build --no-restore --output nupkgs
