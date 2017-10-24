@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security.Permissions;
 using Xunit;
+using System.Linq;
 
 namespace DynamicInterop.Tests
 {
@@ -17,10 +18,16 @@ namespace DynamicInterop.Tests
                 var testLibPathEnv = "DynamicInteropTestLibPath";
                 if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable(testLibPathEnv)))
                 {
-                    //testLibPathEnv = "";
-                    string msg = "You need to set an environment variable e.g.: " + 
-                        @"set DynamicInteropTestLibPath=C:\src\dynamic-interop-dll\x64\Debug";
-                    throw new Exception(msg);
+                    string guess = GuessTestLibPath();
+                    if (Directory.Exists(guess))
+                        Environment.SetEnvironmentVariable(testLibPathEnv, guess);
+                    else
+                    {
+                        //testLibPathEnv = "";
+                        string msg = "You need to set an environment variable e.g.: " +
+                            @"set DynamicInteropTestLibPath=C:\src\dynamic-interop-dll\x64\Debug";
+                        throw new Exception(msg);
+                    }
                 }
                 string nativeLibFilename = PlatformUtility.FindFirstFullPath(fname, "test_delegate_library DLL", testLibPathEnv);
                 NativeLib = new UnmanagedDll(nativeLibFilename);
@@ -35,15 +42,15 @@ namespace DynamicInterop.Tests
                 //AppDomain.CurrentDomain.BaseDirectory
                 //"C:\\src\\github_jm\\dynamic-interop-dll\\DynamicInterop.Tests\\bin\\Debug\\netcoreapp2.0\\"
                 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-                string d = baseDir;
-                string baseName = Path.GetFileName(baseDir);
-                string dirName = Path.GetDirectoryName(baseDir);
+                string d = baseDir.Trim(Path.DirectorySeparatorChar);
+                string baseName = d.Split(Path.DirectorySeparatorChar).Last();
+                string dirName = Directory.GetParent(baseDir).FullName;
                 int maxIter = 24;
-                while (!string.IsNullOrEmpty(baseName) && !(baseName == "DynamicInterop.Tests") && maxIter > 0)
+                while (!string.IsNullOrEmpty(baseName) && !(baseName == "dynamic-interop-dll") && maxIter > 0)
                 {
-                    d = baseDir;
-                    baseName = Path.GetFileName(baseDir);
-                    dirName = Path.GetDirectoryName(baseDir);
+                    d = dirName.Trim(Path.DirectorySeparatorChar);
+                    baseName = d.Split(Path.DirectorySeparatorChar).Last();
+                    dirName = Directory.GetParent(d).FullName;
                     maxIter--;
                 }
                 if (is64bits)
@@ -240,6 +247,10 @@ namespace DynamicInterop.Tests
             Assert.Equal(1, dog.NativeReferenceCount);
             dog = null;
             CallGC();
+            CallGC();
+            // 2017-10-24 On windows, I cannot get the above calls to trigger GCs. 
+            // At least not in debug mode from VS via the test explorer.
+            // A Watchpoint but the other tests suggest this is a false flag.
             Assert.Equal(initDogCount, Dog.NumNativeInstances);
         }
 

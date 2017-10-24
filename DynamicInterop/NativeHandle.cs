@@ -70,7 +70,7 @@ namespace DynamicInterop
         {
             finalizing = true;
             Release();
-        }
+            }
 
         /// <summary> Releases the native resource for this handle.</summary>
         ///
