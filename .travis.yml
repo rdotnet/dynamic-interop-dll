@@ -7,7 +7,15 @@ script:
 - dotnet restore
 - dotnet build --configuration Release --no-restore
 
-- export DynamicInteropTestLibPath='/home/travis/build/screig/dynamic-interop-dll/DynamicInterop.Tests/bin/Release/netcoreapp2.0'
+- cd DynamicInterop.Tests
+- cd test_native_library
+- cmake -H. -Bbuild
+- cmake --build build -- -j3
+- cd ..
+- cd ..
+
+- export DynamicInteropTestLibPath='/home/travis/build/screig/dynamic-interop-dll/DynamicInterop.Tests/test_native_library/build'
+
 - DYNINTEROP_BIN_DIR='/home/travis/build/screig/dynamic-interop-dll/DynamicInterop/bin/Release/netstandard2.0'
 - cd libdlwrap
 - make
