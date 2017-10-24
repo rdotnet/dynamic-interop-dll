@@ -7,10 +7,12 @@ script:
 - dotnet restore
 - dotnet build --configuration Release --no-restore
 
-- cd DynamicInterop.Tests\test_native_library
+- cd DynamicInterop.Tests
+- cd test_native_library
 - cmake -H. -Bbuild
 - cmake --build build -- -j3
-- cd ../..
+- cd ..
+- cd ..
 
 - export DynamicInteropTestLibPath='/home/travis/build/screig/dynamic-interop-dll/DynamicInterop.Tests/test_native_library/build'
 
