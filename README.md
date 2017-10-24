@@ -7,13 +7,15 @@ Facilities to load native DLLs from .NET, on Unix, Windows or MacOS.
 
 This library is designed to dynamic libraries (called shared libraries on unix-type of platforms). The loading mechanism adapts to the operating system it is running on. It is an offshoot from the [R.NET](http://rdotnet.codeplex.com) project (source code now hosted [on github](https://github.com/jmp75/rdotnet)). 
 
+# License
+
+This library is covered as of version 0.7.3 by the [MIT license](https://github.com/jmp75/dynamic-interop-dll/blob/3055f27f46d1b794572bcd944eaebbd4f960b9a6/License.txt).
+
 # Installation
 
 You can install this library in your project(s) [as a NuGet package](https://www.nuget.org/packages/DynamicInterop)
 
-# License
-
-This library is covered as of version 0.7.3 by the [MIT license](https://github.com/jmp75/dynamic-interop-dll/blob/3055f27f46d1b794572bcd944eaebbd4f960b9a6/License.txt).
+For some Linux flavours you may need to also compile a [workaround for a "invalid caller" error](#libdl-workaround). This has been observed on some CentOS flavours. Debian, Ubuntu appear fine.
 
 # Usage
 
@@ -36,11 +38,36 @@ private delegate bool Beep(uint dwFreq, uint dwDuration);
 private delegate bool AreFileApisANSI();
 ```
 
-# Related work
+# Building
 
-I did notice that [a related library](https://github.com/Boyko-Karadzhov/Dynamic-Libraries) with some overlapping features has been released just a week ago (as of when I wrote this)... While I want to explore possibilities to merge these libraries, I have pressing needs to release present library release as a stand-alone package.
+## Windows
 
-# Workaround for some Linux platforms
+## Linux
+
+Follow the instructions for your platform to install `dotnet` if need be via [Download .NET](https://www.microsoft.com/net/download)
+
+```bash
+dotnet restore
+# ignore the restore fail for DynamicInterop.Tests/test_native_library/test_native_library.vcxproj if you get any
+dotnet build --configuration Debug --no-restore
+cd tests
+cd test_native_library
+cmake -H. -Bbuild
+cmake --build build -- -j3
+cd ..
+cd ..
+export DynamicInteropTestLibPath='/home/travis/build/screig/dynamic-interop-dll/DynamicInterop.Tests/test_native_library/build'
+DYNINTEROP_BIN_DIR='/home/travis/build/screig/dynamic-interop-dll/DynamicInterop/bin/Release/netstandard2.0'
+cd libdlwrap
+make
+cp sample.config $DYNINTEROP_BIN_DIR/DynamicInterop.dll.config
+cp libdlwrap.so  $DYNINTEROP_BIN_DIR/
+cd ..
+dotnet test DynamicInterop.Tests/DynamicInterop.Tests.csproj
+dotnet pack DynamicInterop/DynamicInterop.csproj --configuration Release --no-build --no-restore --output nupkgs
+```
+
+## libdl workaround
 
 You normally do not need to install this workaround on most Linux platform. If, however, you get a message 'invalid caller' message from the dlerror function, read on.
 
@@ -56,6 +83,11 @@ less sample.config # skim the comments, for information
 cp sample.config $DYNINTEROP_BIN_DIR/DynamicInterop.dll.config
 cp libdlwrap.so  $DYNINTEROP_BIN_DIR/
 ```
+
+# Related work
+
+I did notice that [a related library](https://github.com/Boyko-Karadzhov/Dynamic-Libraries) with some overlapping features has been released just a week ago (as of when I wrote this)... While I want to explore possibilities to merge these libraries, I have pressing needs to release present library release as a stand-alone package.
+
 # Acknowledgements
 
 * Kosei designed and implemented the original multi-platform library loading
