@@ -44,13 +44,13 @@ private delegate bool AreFileApisANSI();
 
 ## Linux
 
-Follow the instructions for your platform to install `dotnet` if need be via [Download .NET](https://www.microsoft.com/net/download)
+Follow the instructions for your platform to install `dotnet` if need be via [Download .NET](https://www.microsoft.com/net/download). Which version of nuget you have may matter too (beware older versions coming from some deb repos), see [https://docs.microsoft.com/en-us/nuget/guides/install-nuget](https://docs.microsoft.com/en-us/nuget/guides/install-nuget) to retrieve the latest nuget.exe.
 
 ```bash
 dotnet restore
 # ignore the restore fail for DynamicInterop.Tests/test_native_library/test_native_library.vcxproj if you get any
 dotnet build --configuration Debug --no-restore
-cd tests
+cd DynamicInterop.Tests
 cd test_native_library
 cmake -H. -Bbuild
 cmake --build build -- -j3
