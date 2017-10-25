@@ -1,3 +1,5 @@
+dev : https://travis-ci.org/screig/dynamic-interop-dll.svg?branch=devel    master: https://travis-ci.org/screig/dynamic-interop-dll.svg?branch=master
+
 dynamic-interop-dll
 ===================
 
