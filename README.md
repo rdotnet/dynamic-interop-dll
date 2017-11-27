@@ -5,7 +5,44 @@ Facilities to load native DLLs from .NET, on Unix, Windows or MacOS.
 
 # Purpose
 
-This library is designed to dynamic libraries (called shared libraries on unix-type of platforms). The loading mechanism adapts to the operating system it is running on. It is an offshoot from the [R.NET](http://rdotnet.codeplex.com) project (source code now hosted [on github](https://github.com/jmp75/rdotnet)). 
+This library is designed to facilitate load dynamic link libraries (called shared libraries on unix-type of platforms) from `.NET`, and the interop between the two worlds. The loading mechanism adapts to the operating system it is running on. It is an offshoot from the [R.NET](http://rdotnet.codeplex.com) project (source code now hosted [on github](https://github.com/jmp75/rdotnet)). 
+
+
+```c
+MY_C_API_MARKER void Play(void* simulation, const char* variableIdentifier, double* values, TimeSeriesGeometry* geom);
+```
+
+```c#
+    [DllImport("libswift.dll", EntryPoint = "Play", CallingConvention = CallingConvention.Cdecl)]
+    private static extern void Play(
+        [In] IntPtr modelSimulation,
+        [In] string variableIdentifier,
+        [In] [MarshalAs(UnmanagedType.LPArray)] double[] values,
+        ref MarshaledTimeSeriesGeometry geom);
+```
+
+```c#
+    public void Play(IModelSimulation modelSimulation, string variableIdentifier, MinimalTimeSeries series)
+    {
+        var handle = modelSimulation.DangerousGetHandle();
+        var geom = new MarshaledTimeSeriesGeometry(series);
+        MsDotnetNativeApi.Play(handle, variableIdentifier, series.Data, ref geom);
+    }
+```
+
+```c#
+    private delegate void Play_csdelegate(IntPtr simulation, string variableIdentifier, IntPtr values, IntPtr geom);
+    // and somewhere in a class a field is set:
+    NativeLib = new UnmanagedDll(someNativeLibFilename);
+
+    void Play_cs(IModelSimulation simulation, string variableIdentifier, double[] values, ref MarshaledTimeSeriesGeometry geom)
+    {
+        IntPtr values_doublep, geom_struct;
+        // here glue code here to create native arrays/structs
+        NativeLib.GetFunction<Play_csdelegate>("Play")(CheckedDangerousGetHandle(simulation, "simulation"), variableIdentifier, values_doublep, geom_struct);
+        // here copy args back to managed; clean up transient native resources.
+    }
+```
 
 # License
 
