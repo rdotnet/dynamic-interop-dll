@@ -1,3 +1,8 @@
+
+[![Dev Build Status](https://travis-ci.org/screig/dynamic-interop-dll.svg?branch=devel )](https://github.com/screig/dynamic-interop-dll)
+[![Master Build Status](https://travis-ci.org/screig/dynamic-interop-dll.svg?branch=master )](https://github.com/screig/dynamic-interop-dll)
+
+
 dynamic-interop-dll
 ===================
 
