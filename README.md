@@ -1,6 +1,5 @@
 
-[![Dev Build Status](https://travis-ci.org/screig/dynamic-interop-dll.svg?branch=devel )](https://github.com/screig/dynamic-interop-dll)
-[![Master Build Status](https://travis-ci.org/screig/dynamic-interop-dll.svg?branch=master )](https://github.com/screig/dynamic-interop-dll)
+[![Dev Build Status](https://travis-ci.org/jmp75/dynamic-interop-dll.svg?branch=feature/netstandard2)](https://github.com/jmp75/dynamic-interop-dll/tree/feature/netstandard2)
 
 
 dynamic-interop-dll
@@ -102,8 +101,7 @@ cd test_native_library
 cmake -H. -Bbuild
 cmake --build build -- -j3
 # cmake --build build 
-cd ..
-cd ..
+cd ../..
 ```
 
 On Windows:

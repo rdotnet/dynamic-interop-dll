@@ -14,14 +14,13 @@ script:
 - cd ..
 - cd ..
 
-- export DynamicInteropTestLibPath='/home/travis/build/screig/dynamic-interop-dll/DynamicInterop.Tests/test_native_library/build'
+# - DYNINTEROP_BIN_DIR='/home/travis/build/jmp75/dynamic-interop-dll/DynamicInterop/bin/Release/netstandard2.0'
+# - cd libdlwrap
+# - make
+# - cp sample.config $DYNINTEROP_BIN_DIR/DynamicInterop.dll.config
+# - cp libdlwrap.so  $DYNINTEROP_BIN_DIR/
+# - cd ..
 
-- DYNINTEROP_BIN_DIR='/home/travis/build/screig/dynamic-interop-dll/DynamicInterop/bin/Release/netstandard2.0'
-- cd libdlwrap
-- make
-- cp sample.config $DYNINTEROP_BIN_DIR/DynamicInterop.dll.config
-- cp libdlwrap.so  $DYNINTEROP_BIN_DIR/
-- cd ..
-
-- dotnet test DynamicInterop.Tests/DynamicInterop.Tests.csproj
-- dotnet pack DynamicInterop/DynamicInterop.csproj --configuration Release --no-build --no-restore --output nupkgs
+# - export DynamicInteropTestLibPath='/home/travis/build/jmp75/dynamic-interop-dll/DynamicInterop.Tests/test_native_library/build'
+# - dotnet test DynamicInterop.Tests/DynamicInterop.Tests.csproj
+# - dotnet pack DynamicInterop/DynamicInterop.csproj --configuration Release --no-build --no-restore --output nupkgs

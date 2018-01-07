@@ -36,23 +36,32 @@ namespace DynamicInterop.Tests
 
         public string GuessTestLibPath()
         {
+            bool is64bits = System.Environment.Is64BitProcess;
+            //AppDomain.CurrentDomain.BaseDirectory
+            //"C:\\src\\github_jm\\dynamic-interop-dll\\DynamicInterop.Tests\\bin\\Debug\\netcoreapp2.0\\"
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            DirectoryInfo diBase = new DirectoryInfo(baseDir);
+            DirectoryInfo diParent = diBase.Parent;
+
+            string d = baseDir.Trim(Path.DirectorySeparatorChar);
+            string baseName = d.Split(Path.DirectorySeparatorChar).Last();
+            //var dirinfo = System.IO.Directory.GetParent(baseDir);
+            string dirName = diParent.FullName;
+            int maxIter = 24;
+            while (!string.IsNullOrEmpty(baseName) && !(baseName == "dynamic-interop-dll") && maxIter > 0)
+            {
+                // NOTE: possibly bug in .NET core app for Directory.GetParent if on path with no trailing /
+                d = dirName.Trim(Path.DirectorySeparatorChar);
+                baseName = d.Split(Path.DirectorySeparatorChar).Last();
+
+                //dirinfo = System.IO.Directory.GetParent(d);
+                diBase = new DirectoryInfo(d);
+                diParent = diBase.Parent;
+                dirName = diParent.FullName;
+                maxIter--;
+            }
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
             {
-                bool is64bits = System.Environment.Is64BitProcess;
-                //AppDomain.CurrentDomain.BaseDirectory
-                //"C:\\src\\github_jm\\dynamic-interop-dll\\DynamicInterop.Tests\\bin\\Debug\\netcoreapp2.0\\"
-                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-                string d = baseDir.Trim(Path.DirectorySeparatorChar);
-                string baseName = d.Split(Path.DirectorySeparatorChar).Last();
-                string dirName = Directory.GetParent(baseDir).FullName;
-                int maxIter = 24;
-                while (!string.IsNullOrEmpty(baseName) && !(baseName == "dynamic-interop-dll") && maxIter > 0)
-                {
-                    d = dirName.Trim(Path.DirectorySeparatorChar);
-                    baseName = d.Split(Path.DirectorySeparatorChar).Last();
-                    dirName = Directory.GetParent(d).FullName;
-                    maxIter--;
-                }
                 if (is64bits)
                     return Path.Combine(d, "x64", "Debug");
                 else
@@ -60,7 +69,7 @@ namespace DynamicInterop.Tests
             }
             else
             {
-                throw new NotImplementedException();
+                return Path.Combine(d, "DynamicInterop.Tests/test_native_library/build");
             }
         }
         public static UnmanagedDll NativeLib { get; private set; }
@@ -251,6 +260,7 @@ namespace DynamicInterop.Tests
             // 2017-10-24 On windows, I cannot get the above calls to trigger GCs. 
             // At least not in debug mode from VS via the test explorer.
             // A Watchpoint but the other tests suggest this is a false flag.
+            // 2018-01- Same issue on linux
             Assert.Equal(initDogCount, Dog.NumNativeInstances);
         }
 
