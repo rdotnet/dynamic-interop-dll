@@ -1,0 +1,19 @@
+version: '{build}'
+image:
+- Visual Studio 2017
+# - Visual Studio 2015
+platform: x64
+environment:
+  matrix:
+  - PLATFORM: x64
+  # - PLATFORM: x86
+branches:
+  only:
+  - feature/netstandard2
+build_script:
+- cmd: >-
+
+   msbuild DynamicInterop.sln /p:Platform="%PLATFORM%" /p:Configuration=Release
+
+# test_script:
+# - cmd: Release\wila_tests.exe
