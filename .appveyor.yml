@@ -14,7 +14,7 @@ build_script:
 - cmd: >-
     nuget restore
 
-    msbuild DynamicInterop.sln /p:Platform=AnyCPU /p:Configuration=Release
+    msbuild DynamicInterop.sln /p:Platform="Any CPU" /p:Configuration=Release
 
 # test_script:
 # - cmd: Release\wila_tests.exe
