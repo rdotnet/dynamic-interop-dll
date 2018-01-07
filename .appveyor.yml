@@ -13,6 +13,8 @@ branches:
 build_script:
 - cmd: >-
     nuget restore
-    msbuild DynamicInterop.sln /p:Platform="%PLATFORM%" /p:Configuration=Release
+
+    msbuild DynamicInterop.sln /p:Platform=AnyCPU /p:Configuration=Release
+
 # test_script:
 # - cmd: Release\wila_tests.exe
