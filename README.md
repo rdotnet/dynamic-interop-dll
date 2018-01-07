@@ -82,9 +82,7 @@ private delegate bool AreFileApisANSI();
 
 # Building
 
-## Windows
-
-## Linux
+The command line for building and testing are largely platform neutral. you will need `dotnet` to build and optionally `cmake` to compile and run some of the unit tests, on Linux.
 
 Follow the instructions for your platform to install `dotnet` if need be via [Download .NET](https://www.microsoft.com/net/download). Which version of nuget you have may matter too (beware older versions coming from some deb repos), see [https://docs.microsoft.com/en-us/nuget/guides/install-nuget](https://docs.microsoft.com/en-us/nuget/guides/install-nuget) to retrieve the latest nuget.exe.
 
@@ -92,26 +90,43 @@ Follow the instructions for your platform to install `dotnet` if need be via [Do
 dotnet restore
 # ignore the restore fail for DynamicInterop.Tests/test_native_library/test_native_library.vcxproj if you get any
 dotnet build --configuration Debug --no-restore
+```
+
+## testing
+
+if on Linux, you need to compile the test native library:
+
+```bash
 cd DynamicInterop.Tests
 cd test_native_library
 cmake -H. -Bbuild
 cmake --build build -- -j3
+# cmake --build build 
 cd ..
 cd ..
-export DynamicInteropTestLibPath='/home/travis/build/screig/dynamic-interop-dll/DynamicInterop.Tests/test_native_library/build'
-DYNINTEROP_BIN_DIR='/home/travis/build/screig/dynamic-interop-dll/DynamicInterop/bin/Release/netstandard2.0'
-cd libdlwrap
-make
-cp sample.config $DYNINTEROP_BIN_DIR/DynamicInterop.dll.config
-cp libdlwrap.so  $DYNINTEROP_BIN_DIR/
-cd ..
-dotnet test DynamicInterop.Tests/DynamicInterop.Tests.csproj
-dotnet pack DynamicInterop/DynamicInterop.csproj --configuration Release --no-build --no-restore --output nupkgs
 ```
 
-## libdl workaround
+On Windows:
 
-You normally do not need to install this workaround on most Linux platform. If, however, you get a message 'invalid caller' message from the dlerror function, read on.
+```bat
+set DynamicInteropTestLibPath=C:\src\dynamic-interop-dll\x64\Debug
+```
+
+On Linux:
+
+```bash
+export DynamicInteropTestLibPath='/home/path/to/dynamic-interop-dll/DynamicInterop.Tests/test_native_library/build'
+```
+
+then you can run unit tests:
+
+```bash
+dotnet test DynamicInterop.Tests/DynamicInterop.Tests.csproj
+```
+
+If, in the output of the unit test, you see an 'invalid caller' message from the dlerror function, read on the next section. This issue is known to happen on some Linux distros.
+
+## libdl workaround for Linux
 
 On Linux, DynamicInterop calls the dlopen function in "libdl" via P/Invoke to try to load the shared native library, On at least one instance of one Linux flavour (CentOS), it fails and 'dlerror' returns the message 'invalid caller'. See https://rdotnet.codeplex.com/workitem/73 for detailed information. Why this is an "invalid caller" could not be determined. While the exact cause if this failure is unclear, a thin wrapper library around libdl.so works around this issue.
 
@@ -124,6 +139,12 @@ make
 less sample.config # skim the comments, for information
 cp sample.config $DYNINTEROP_BIN_DIR/DynamicInterop.dll.config
 cp libdlwrap.so  $DYNINTEROP_BIN_DIR/
+```
+
+## Building the nuget package
+
+```bash
+dotnet pack DynamicInterop/DynamicInterop.csproj --configuration Release --no-build --no-restore --output nupkgs
 ```
 
 # Related work
