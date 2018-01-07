@@ -12,10 +12,7 @@ branches:
   - feature/netstandard2
 build_script:
 - cmd: >-
-
-  nuget restore
-
-  msbuild DynamicInterop.sln /p:Platform="%PLATFORM%" /p:Configuration=Release
-
+    nuget restore
+    msbuild DynamicInterop.sln /p:Platform="%PLATFORM%" /p:Configuration=Release
 # test_script:
 # - cmd: Release\wila_tests.exe
