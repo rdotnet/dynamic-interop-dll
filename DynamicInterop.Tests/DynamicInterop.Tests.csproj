@@ -2,6 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <EnableUnmanagedDebugging Condition=" '$(Configuration)' == 'Debug' ">true</EnableUnmanagedDebugging>
     <ProjectGuid>{CA934BF8-EC5B-49F5-8F52-25F3B11072E6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
@@ -9,6 +10,8 @@
     <Description>DynamicInterop unit tests</Description>
     <Authors>Jean-Michel Perraud</Authors>
     <PackageReleaseNotes>Migration to .NET Standard 2.0</PackageReleaseNotes>
+    <ApplicationIcon />
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="test_native_library\**" />
