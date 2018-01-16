@@ -12,9 +12,13 @@ branches:
   - feature/netstandard2
 build_script:
 - cmd: >-
-    nuget restore
+    dotnet restore
 
-    msbuild DynamicInterop.sln /p:Platform="Any CPU" /p:Configuration=Release
+    dotnet build --configuration Debug --no-restore
 
-# test_script:
-# - cmd: Release\wila_tests.exe
+# Running tests will be such that current directory is [...]\dynamic-interop-dll\DynamicInterop.Tests\bin\Debug\netcoreapp2.0, so adapt DynamicInteropTestLibPath
+test_script:
+- cmd: >-
+    set DynamicInteropTestLibPath=..\..\..\..\x64\Debug
+
+    dotnet test DynamicInterop.Tests/DynamicInterop.Tests.csproj
