@@ -14,7 +14,10 @@ build_script:
 - cmd: >-
     dotnet restore
 
-    dotnet build --configuration Debug --no-restore
+    msbuild DynamicInterop.sln /p:Platform="Any CPU" /p:Configuration=Debug
+
+# Could not use dotnet build on appveyor: native test lib compilation leads to error MSB4019: The imported project "C:\Microsoft.Cpp.Default.props" was not found 
+#    dotnet build --configuration Debug --no-restore
 
 # Running tests will be such that current directory is [...]\dynamic-interop-dll\DynamicInterop.Tests\bin\Debug\netcoreapp2.0, so adapt DynamicInteropTestLibPath
 test_script:
