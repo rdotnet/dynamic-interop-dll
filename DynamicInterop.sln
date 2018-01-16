@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27019.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicInterop", "DynamicInterop\DynamicInterop.csproj", "{37E8DF32-0D37-418E-B976-10F4B36A0073}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicInterop", "DynamicInterop\DynamicInterop.csproj", "{37E8DF32-0D37-418E-B976-10F4B36A0073}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicInterop.Tests", "DynamicInterop.Tests\DynamicInterop.Tests.csproj", "{CA934BF8-EC5B-49F5-8F52-25F3B11072E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicInterop.Tests", "DynamicInterop.Tests\DynamicInterop.Tests.csproj", "{CA934BF8-EC5B-49F5-8F52-25F3B11072E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicInterop.TestApp", "DynamicInterop.TestApp\DynamicInterop.TestApp.csproj", "{46208A0E-F95F-4B1E-A396-0F715BA6B87A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicInterop.TestApp", "DynamicInterop.TestApp\DynamicInterop.TestApp.csproj", "{46208A0E-F95F-4B1E-A396-0F715BA6B87A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_native_library", "DynamicInterop.Tests\test_native_library\test_native_library.vcxproj", "{32E08C93-DB46-4A93-8FE7-5791E088B2A1}"
 EndProject
@@ -57,7 +57,7 @@ Global
 		{46208A0E-F95F-4B1E-A396-0F715BA6B87A}.Release|x64.Build.0 = Release|Any CPU
 		{46208A0E-F95F-4B1E-A396-0F715BA6B87A}.Release|x86.ActiveCfg = Release|Any CPU
 		{46208A0E-F95F-4B1E-A396-0F715BA6B87A}.Release|x86.Build.0 = Release|Any CPU
-		{32E08C93-DB46-4A93-8FE7-5791E088B2A1}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{32E08C93-DB46-4A93-8FE7-5791E088B2A1}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{32E08C93-DB46-4A93-8FE7-5791E088B2A1}.Debug|x64.ActiveCfg = Debug|x64
 		{32E08C93-DB46-4A93-8FE7-5791E088B2A1}.Debug|x64.Build.0 = Debug|x64
 		{32E08C93-DB46-4A93-8FE7-5791E088B2A1}.Debug|x86.ActiveCfg = Debug|Win32
@@ -70,6 +70,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3F12B32B-328B-4BD8-A08E-1498C924B167}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = DynamicInterop.TestApp\DynamicInterop.TestApp.csproj
