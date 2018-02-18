@@ -5,16 +5,20 @@
     <ProjectGuid>{37E8DF32-0D37-418E-B976-10F4B36A0073}</ProjectGuid>
     <OutputType>Library</OutputType>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.9.0-beta</Version>
+    <Version>0.9.0</Version>
+    <!-- See for pkg tags: https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#nuget-metadata-properties -->
     <Copyright>(c) 2014-2017 Jean-Michel Perraud; (c) 2014 Daniel Collins, CSIRO; (c) 2013 Kosei, evolvedmicrobe</Copyright>
-    <Description>Load native DLLs from .NET, on Unix, Windows or MacOS</Description>
+    <Description>Load native shared libraries from .NET on Unix, Windows or MacOS. This package offers more facilities to handle a native library at runtime rather than at compile time (vanilla P/Invoke uses rather static idioms).</Description>
     <Product>DynamicInterop</Product>
     <Company />
     <Authors>Jean-Michel Perraud, Daniel Collins, Kosei, evolvedmicrobe</Authors>
     <PackageId>DynamicInterop</PackageId>
+    <Title>Make .NET P/Invoke a bit more dynamic</Title>
+    <PackageLicenseUrl>https://github.com/jmp75/dynamic-interop-dll/blob/feature/netstandard2/License.txt</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/jmp75/dynamic-interop-dll</RepositoryUrl>
     <PackageProjectUrl>https://github.com/jmp75/dynamic-interop-dll</PackageProjectUrl>
     <PackageReleaseNotes>Migration to .NET Standard 2.0</PackageReleaseNotes>
+    <PackageTags>interop dynamic p/invoke</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <None Include="Classes.cd" />
