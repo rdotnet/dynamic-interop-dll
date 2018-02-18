@@ -143,8 +143,18 @@ cp libdlwrap.so  $DYNINTEROP_BIN_DIR/
 
 ## Building the nuget package
 
+*This section is primarily a reminder to the package author.*
+
 ```bash
 dotnet pack DynamicInterop/DynamicInterop.csproj --configuration Release --no-build --no-restore --output nupkgs
+# Or for initial testing/debugging
+dotnet pack DynamicInterop/DynamicInterop.csproj --configuration Debug --no-build --no-restore --output nupkgs
+```
+
+If you have an additional nuget package repository for tests:
+
+```cmd
+cp .\DynamicInterop\nupkgs\DynamicInterop.0.9.0-beta.nupkg c:\local\nuget
 ```
 
 # Related work
