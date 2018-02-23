@@ -7,9 +7,8 @@ namespace ProgressUpdateApp
 {
     public static class CallbackHandlers
     {
-        static CallbackHandlers()
-        {
-        }
+
+        /// <summary> This triggers the registration of the C# callback function by the C++ library</summary>
         public static void SetProgressUpdateCallback()
         {
             RegisterProgressUpdateCallback(ProgressUpdateHandler);
@@ -25,7 +24,7 @@ namespace ProgressUpdateApp
         public delegate void ProgressUpdateCallback(double progressValue);
         private static ProgressUpdateCallback callback = null;
 
-        public static void RegisterProgressUpdateCallback(Action<double> whatToDo)
+        private static void RegisterProgressUpdateCallback(Action<double> whatToDo)
         {
             // Many thanks to http://www.codeproject.com/Tips/318140/How-to-make-a-callback-to-Csharp-from-C-Cplusplus
             // for providing a solution that worked, in terms of what calling convention to use. 
