@@ -117,3 +117,5 @@ UpgradeLog*.XML
 /.vs/DynamicInterop/v15/Server/sqlite3/storage.ide
 /.vs/DynamicInterop/v15/Browse.VC.opendb
 /.vs/DynamicInterop/v15/Server/sqlite3
+.vscode/
+.vs/
