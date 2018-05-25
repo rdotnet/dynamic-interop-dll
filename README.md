@@ -1,7 +1,7 @@
 
-[![Linux netstandard2 Build Status](https://travis-ci.org/jmp75/dynamic-interop-dll.svg?branch=feature/netstandard2 "Linux netstandard2 Build Status")](https://travis-ci.org/jmp75/dynamic-interop-dll/builds)
+[![Linux master Build Status](https://travis-ci.org/jmp75/dynamic-interop-dll.svg?branch=master "Linux master Build Status")](https://travis-ci.org/jmp75/dynamic-interop-dll/builds)
 
-[![Windows netstandard2 Build Status](https://ci.appveyor.com/api/projects/status/otm2yg0os9rpn5j1?svg=true "Windows netstandard2 Build Status")](https://ci.appveyor.com/project/jmp75/dynamic-interop-dll) 
+[![Windows master Build Status](https://ci.appveyor.com/api/projects/status/otm2yg0os9rpn5j1?branch/master?svg=true "Windows master Build Status")](https://ci.appveyor.com/project/jmp75/dynamic-interop-dll/branch/master) 
 
 
 dynamic-interop-dll

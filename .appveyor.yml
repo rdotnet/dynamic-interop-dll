@@ -9,7 +9,7 @@ environment:
   # - PLATFORM: x86
 branches:
   only:
-  - feature/netstandard2
+  - master, devel
 build_script:
 - cmd: >-
     dotnet restore
