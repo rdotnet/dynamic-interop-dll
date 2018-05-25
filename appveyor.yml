@@ -1,15 +1,20 @@
 version: '{build}'
+
 image:
 - Visual Studio 2017
 # - Visual Studio 2015
+
 platform: x64
+
 environment:
   matrix:
   - PLATFORM: x64
   # - PLATFORM: x86
+
 branches:
   only:
   - master, devel
+
 build_script:
 - cmd: >-
     dotnet restore DynamicInterop_csharp.sln
