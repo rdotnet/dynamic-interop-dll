@@ -12,7 +12,7 @@ branches:
   - master, devel
 build_script:
 - cmd: >-
-    dotnet restore
+    dotnet restore DynamicInterop_csharp.sln
 
     msbuild DynamicInterop.sln /p:Platform="Any CPU" /p:Configuration=Debug /consoleloggerparameters:ErrorsOnly
 
