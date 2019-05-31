@@ -108,14 +108,5 @@ Backup*/
 UpgradeLog*.XML
 *.nupkg
 
-/.vs/DynamicInterop.sqlite
-/.vs/DynamicInterop/v15/Browse.VC.db
-/.vs/DynamicInterop/v15/Solution.VC.db
-/.vs/DynamicInterop/v15/Solution.VC.db-shm
-/.vs/DynamicInterop/v15/Solution.VC.db-wal
-/.vs/DynamicInterop/v15/Server/sqlite3/db.lock
-/.vs/DynamicInterop/v15/Server/sqlite3/storage.ide
-/.vs/DynamicInterop/v15/Browse.VC.opendb
-/.vs/DynamicInterop/v15/Server/sqlite3
 .vscode/
 .vs/
