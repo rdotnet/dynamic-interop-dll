@@ -14,7 +14,7 @@ script:
 - cd ..
 - cd ..
 
-# - DYNINTEROP_BIN_DIR='/home/travis/build/jmp75/dynamic-interop-dll/DynamicInterop/bin/Release/netstandard2.0'
+# - DYNINTEROP_BIN_DIR='/home/travis/build/jmp75/dynamic-interop-dll/DynamicInterop/bin/Release/net5.0'
 # - cd libdlwrap
 # - make
 # - cp sample.config $DYNINTEROP_BIN_DIR/DynamicInterop.dll.config

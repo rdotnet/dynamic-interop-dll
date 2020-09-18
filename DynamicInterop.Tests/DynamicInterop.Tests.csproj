@@ -5,7 +5,7 @@
     <EnableUnmanagedDebugging Condition=" '$(Configuration)' == 'Debug' ">true</EnableUnmanagedDebugging>
     <ProjectGuid>{CA934BF8-EC5B-49F5-8F52-25F3B11072E6}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Version>0.8.2</Version>
     <Description>DynamicInterop unit tests</Description>
     <Authors>Jean-Michel Perraud</Authors>
@@ -19,9 +19,12 @@
     <None Remove="test_native_library\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0"></PackageReference>
-    <PackageReference Include="xunit" Version="2.3.0-beta5-build3769" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0-beta5-build3769" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1"></PackageReference>
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <!-- Notice that xunit.assert, xunit.core, etc. are imported automatically.-->
   </ItemGroup> 
   <ItemGroup>

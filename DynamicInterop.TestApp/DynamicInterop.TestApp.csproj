@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ProjectGuid>{46208A0E-F95F-4B1E-A396-0F715BA6B87A}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Version>0.8.2</Version>
     <Description>DynamicInterop unit tests</Description>
     <Authors>Jean-Michel Perraud</Authors>

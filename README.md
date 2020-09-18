@@ -85,15 +85,17 @@ private delegate bool AreFileApisANSI();
 
 The command line for building and testing are largely platform neutral. you will need `dotnet` to build and optionally `cmake` to compile and run some of the unit tests, on Linux.
 
-Follow the instructions for your platform to install `dotnet` if need be via [Download .NET](https://www.microsoft.com/net/download). Which version of nuget you have may matter too (beware older versions coming from some deb repos), see [https://docs.microsoft.com/en-us/nuget/guides/install-nuget](https://docs.microsoft.com/en-us/nuget/guides/install-nuget) to retrieve the latest nuget.exe.
+Follow the instructions for your platform to install `dotnet` if need be via [Download .NET](https://www.microsoft.com/net/download).
+
+As of `dotnet` version 5 and above (and possibly before that) nuget apears not required. For older versions you may need `nuget` as well. Which version of nuget you have may matter too (beware older versions coming from some debian repositories), see [https://docs.microsoft.com/en-us/nuget/guides/install-nuget](https://docs.microsoft.com/en-us/nuget/guides/install-nuget) to retrieve the latest nuget.exe.
 
 ```bash
-dotnet restore
+dotnet restore DynamicInterop_csharp.sln
 # ignore the restore fail for DynamicInterop.Tests/test_native_library/test_native_library.vcxproj if you get any
-dotnet build --configuration Debug --no-restore
+dotnet build --configuration Debug --no-restore  DynamicInterop_csharp.sln
 ```
 
-## testing
+## Testing
 
 if on Linux, you need to compile the test native library:
 

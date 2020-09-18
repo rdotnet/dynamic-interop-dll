@@ -59,7 +59,7 @@ namespace DynamicInterop.Tests
         {
             bool is64bits = System.Environment.Is64BitProcess;
             //AppDomain.CurrentDomain.BaseDirectory
-            //"C:\\src\\github_jm\\dynamic-interop-dll\\DynamicInterop.Tests\\bin\\Debug\\netcoreapp2.0\\"
+            //"C:\\src\\github_jm\\dynamic-interop-dll\\DynamicInterop.Tests\\bin\\Debug\\net5.0\\"
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             DirectoryInfo diBase = new DirectoryInfo(baseDir);
             DirectoryInfo diParent = diBase.Parent;
