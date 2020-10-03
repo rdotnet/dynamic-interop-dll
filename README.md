@@ -1,8 +1,6 @@
+Windows: [![Windows master Build Status](https://ci.appveyor.com/api/projects/status/otm2yg0os9rpn5j1?branch/master?svg=true "Windows master Build Status")](https://ci.appveyor.com/project/jmp75/dynamic-interop-dll/branch/master) Linux: [![Linux master Build Status](https://travis-ci.org/rdotnet/dynamic-interop-dll.svg?branch=master "Linux master Build Status")](https://travis-ci.org/rdotnet/dynamic-interop-dll/builds)
 
-[![Linux master Build Status](https://travis-ci.org/jmp75/dynamic-interop-dll.svg?branch=master "Linux master Build Status")](https://travis-ci.org/jmp75/dynamic-interop-dll/builds)
-
-[![Windows master Build Status](https://ci.appveyor.com/api/projects/status/otm2yg0os9rpn5j1?branch/master?svg=true "Windows master Build Status")](https://ci.appveyor.com/project/jmp75/dynamic-interop-dll/branch/master) 
-
+[![Nuget Version](https://buildstats.info/nuget/DynamicInterop)](https://www.nuget.org/packages/DynamicInterop/)
 
 dynamic-interop-dll
 ===================
@@ -11,7 +9,7 @@ Facilities to load native DLLs from .NET, on Unix, Windows or MacOS.
 
 # Purpose
 
-This library is designed to facilitate load dynamic link libraries (called shared libraries on unix-type of platforms) from `.NET`, and the interop between the two worlds. The loading mechanism adapts to the operating system it is running on. It is an offshoot from the [R.NET](http://rdotnet.codeplex.com) project (source code now hosted [on github](https://github.com/jmp75/rdotnet)). 
+This library is designed to facilitate load dynamic link libraries (called shared libraries on unix-type of platforms) from `.NET`, and the interop between the two worlds. The loading mechanism adapts to the operating system it is running on. It is an offshoot from the [R.NET](http://rdotnet.codeplex.com) project (source code now hosted [on github](https://github.com/rdotnet/rdotnet)). 
 
 
 ```c
@@ -52,7 +50,7 @@ MY_C_API_MARKER void Play(void* simulation, const char* variableIdentifier, doub
 
 # License
 
-This library is covered as of version 0.7.3 by the [MIT license](https://github.com/jmp75/dynamic-interop-dll/blob/3055f27f46d1b794572bcd944eaebbd4f960b9a6/License.txt).
+This library is covered as of version 0.7.3 by the [MIT license](https://github.com/rdotnet/dynamic-interop-dll/blob/3055f27f46d1b794572bcd944eaebbd4f960b9a6/License.txt).
 
 # Installation
 
