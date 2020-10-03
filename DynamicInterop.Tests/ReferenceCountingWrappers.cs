@@ -11,10 +11,15 @@ namespace DynamicInterop.Tests
         static NativeTestLib()
         {
             var fname = PlatformUtility.CreateLibraryFileName("test_native_library");
-
             var testLibPathEnv = "DynamicInteropTestLibPath";
             if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable(testLibPathEnv)))
             {
+                Assert.Error("DynamicInteropTestLibPathnot set");
+                var d = Environment.GetEnvironmentVariables();
+                foreach (var k in d.Keys)
+                {
+                    Console.Error.WriteLine("{0}: {1}", k, d[k]);
+                }
                 string guess = GuessTestLibPath();
                 if (Directory.Exists(guess))
                     Environment.SetEnvironmentVariable(testLibPathEnv, guess);
@@ -26,7 +31,7 @@ namespace DynamicInterop.Tests
                     throw new Exception(msg);
                 }
             }
-            string nativeLibFilename = PlatformUtility.FindFirstFullPath(fname, "test_delegate_library DLL", testLibPathEnv);
+            string nativeLibFilename = PlatformUtility.FindFirstFullPath(fname, "test_native_library DLL", testLibPathEnv);
             NativeLib = new UnmanagedDll(nativeLibFilename);
         }
 
@@ -39,6 +44,12 @@ namespace DynamicInterop.Tests
                 var testLibPathEnv = "DynamicInteropTestLibPath";
                 if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable(testLibPathEnv)))
                 {
+                    throw new Exception("WTF why?");
+                    var d = Environment.GetEnvironmentVariables();
+                    foreach (var k in d.Keys)
+                    {
+                        Console.Error.WriteLine("{0}: {1}", k, d[k]);
+                    }
                     string guess = GuessTestLibPath();
                     if (Directory.Exists(guess))
                         Environment.SetEnvironmentVariable(testLibPathEnv, guess);
@@ -50,7 +61,7 @@ namespace DynamicInterop.Tests
                         throw new Exception(msg);
                     }
                 }
-                string nativeLibFilename = PlatformUtility.FindFirstFullPath(fname, "test_delegate_library DLL", testLibPathEnv);
+                string nativeLibFilename = PlatformUtility.FindFirstFullPath(fname, "test_native_library DLL", testLibPathEnv);
                 NativeLib = new UnmanagedDll(nativeLibFilename);
             }
         }

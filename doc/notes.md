@@ -37,3 +37,17 @@ dotnet list DynamicInterop.Tests.csproj package
 dotnet list DynamicInterop.Tests.csproj package
 dotnet add DynamicInterop.Tests.csproj package xunit
 ```
+
+Really troublesome getting something useful out of failed tests. Not sure I even needed xunit.core.visualstudio but if not included no test detected. After many frustrated trials and error, seems I need
+
+```sh
+dotnet add DynamicInterop.Tests.csproj package --prerelease  Microsoft.NET.Test.Sdk 
+dotnet add DynamicInterop.Tests.csproj package --prerelease xunit # not that there is any
+dotnet add DynamicInterop.Tests.csproj package xunit.runner.visualstudio --prerelease # not that there is any
+dotnet list DynamicInterop.Tests.csproj package
+```
+
+`dotnet test DynamicInterop.Tests.csproj` fails with no useful info but  `dotnet test -d blah.log DynamicInterop.Tests.csproj` gives a burried hint of an exception that e3n env var is not set (why not report this then???)
+
+`export DynamicInteropTestLibPath='/home/per202/src/github_jm/dynamic-interop-dll/DynamicInterop.Tests/test_native_library/build'` but the error is still here. `snap` should have grabbed the env var and doing `env | grep Dyn` after `snap run --shell dotnet-sdk.dotnet` confirms that, so what the heck is going on?
+
