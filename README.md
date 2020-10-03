@@ -87,7 +87,7 @@ The command line for building and testing are largely platform neutral. you will
 
 Follow the instructions for your platform to install `dotnet` if need be via [Download .NET](https://www.microsoft.com/net/download).
 
-As of `dotnet` version 5 and above (and possibly before that) nuget apears not required. For older versions you may need `nuget` as well. Which version of nuget you have may matter too (beware older versions coming from some debian repositories), see [https://docs.microsoft.com/en-us/nuget/guides/install-nuget](https://docs.microsoft.com/en-us/nuget/guides/install-nuget) to retrieve the latest nuget.exe.
+As of `dotnet` version 5 and above (and possibly before that) nuget appears to not be required. For older versions you may need `nuget` as well. Which version of nuget you have may matter too (beware older versions coming from some debian repositories), see [https://docs.microsoft.com/en-us/nuget/guides/install-nuget](https://docs.microsoft.com/en-us/nuget/guides/install-nuget) to retrieve the latest nuget.exe.
 
 ```bash
 dotnet restore DynamicInterop_csharp.sln

@@ -40,7 +40,6 @@ dotnet add DynamicInterop.Tests.csproj package xunit
 
 Really troublesome getting something useful out of failed tests. Not sure I even needed xunit.core.visualstudio but if not included no test detected. After many frustrated trials and error, seems I need
 
-
 ```sh
 dotnet add DynamicInterop.Tests.csproj package --prerelease  Microsoft.NET.Test.Sdk 
 dotnet add DynamicInterop.Tests.csproj package --prerelease xunit # not that there is any
