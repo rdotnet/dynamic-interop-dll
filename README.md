@@ -3,6 +3,8 @@
 
 [![Windows master Build Status](https://ci.appveyor.com/api/projects/status/otm2yg0os9rpn5j1?branch/master?svg=true "Windows master Build Status")](https://ci.appveyor.com/project/jmp75/dynamic-interop-dll/branch/master) 
 
+[![DOI](https://zenodo.org/badge/26792926.svg)](https://zenodo.org/badge/latestdoi/26792926)
+
 
 dynamic-interop-dll
 ===================
