@@ -1,4 +1,9 @@
-Windows: [![Windows master Build Status](https://ci.appveyor.com/api/projects/status/otm2yg0os9rpn5j1?branch/master?svg=true "Windows master Build Status")](https://ci.appveyor.com/project/jmp75/dynamic-interop-dll/branch/master) Linux: [![Linux master Build Status](https://travis-ci.org/rdotnet/dynamic-interop-dll.svg?branch=master "Linux master Build Status")](https://travis-ci.org/rdotnet/dynamic-interop-dll/builds)
+
+[![Linux master Build Status](https://travis-ci.org/jmp75/dynamic-interop-dll.svg?branch=master "Linux master Build Status")](https://travis-ci.org/jmp75/dynamic-interop-dll/builds)
+
+[![Windows master Build Status](https://ci.appveyor.com/api/projects/status/otm2yg0os9rpn5j1?branch/master?svg=true "Windows master Build Status")](https://ci.appveyor.com/project/jmp75/dynamic-interop-dll/branch/master) 
+
+[![DOI](https://zenodo.org/badge/26792926.svg)](https://zenodo.org/badge/latestdoi/26792926)
 
 [![Nuget Version](https://buildstats.info/nuget/DynamicInterop)](https://www.nuget.org/packages/DynamicInterop/)
 
